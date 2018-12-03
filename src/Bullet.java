@@ -5,6 +5,7 @@ import javafx.scene.transform.Rotate;
 public class Bullet {
 
 	protected Image bulletImage = new Image("file:res/bullets/bulletc.png");
+	private static final double FIRE_RADIUS = 2;
 	
 	protected Coord position;
 	protected Coord velocity;
@@ -13,7 +14,7 @@ public class Bullet {
 	protected int damage;
 
 	public Bullet(Coord velocity) {
-		this(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity);
+		this(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
 	}
 	
 	public Bullet(Bullet bullet, Coord velocity) {
@@ -27,7 +28,8 @@ public class Bullet {
 		this.damage = damage;
 	}
 
-	public Bullet(Coord position, Coord velocity) {
+	public Bullet(Coord position, Coord velocity, double fireRadius) {
+		position.setXY(position.getX() + velocity.getX() * fireRadius, position.getY() + velocity.getY() * fireRadius);
 		this.position = position;
 		this.velocity = velocity;
 		if (velocity.getX() > 0 && velocity.getY() < 0) {

@@ -1,7 +1,10 @@
+import java.util.Random;
 
 public class Flamethrower extends Weapon {
-	
+
 	private static final int DEFAULT_LIFETIME = 50;
+	private static final double ACCURACY_ERROR = Math.PI / 6;
+	private static final int SHOT_COUNT = 3;
 	protected int fireRate = 10;
 	protected int reloadingTime;
 
@@ -16,15 +19,49 @@ public class Flamethrower extends Weapon {
 	}
 
 	@Override
-	public Bullet shoot() {
-		// TODO : Shot wide direction
+	public FireBullet[] shoot() {
 		if (isReady()) {
 			reloadingTime = 0;
 			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
 			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;
-			Coord velocity = new Coord(GameScene.getMousePosition().getX() - halfWidth,
-					GameScene.getMousePosition().getY() - halfHeight).normalize(bullet.getSpeed());
-			return new FireBullet((FireBullet) bullet, velocity);
+			double dX = GameScene.getMousePosition().getX() - halfWidth;
+			double dY = GameScene.getMousePosition().getY() - halfHeight;
+			double angle;
+			if (dX > 0 && dY < 0) {
+				angle = Math.atan(Math.abs(dY) / Math.abs(dX));
+			} else if (dX < 0 && dY < 0) {
+				angle = Math.PI - Math.atan(Math.abs(dY) / Math.abs(dX));
+			} else if (dX < 0 && dY > 0) {
+				angle = Math.PI + Math.atan(Math.abs(dY) / Math.abs(dX));
+			} else {
+				angle = -Math.atan(Math.abs(dY) / Math.abs(dX));
+			}
+
+			FireBullet[] bulletList = new FireBullet[SHOT_COUNT];
+			Coord velocity = new Coord();
+			Random rand = new Random();
+			for (int i = 0; i < SHOT_COUNT; i++) {
+				double error = rand.nextDouble() * ACCURACY_ERROR * (rand.nextInt(2) == 0 ? 1 : -1);
+				double newAngle = angle + error;
+				if (newAngle >= 0 && newAngle < Math.PI / 2) {
+					velocity.setXY(1, -Math.tan(newAngle));
+				} else if (newAngle >= Math.PI / 2 && newAngle < Math.PI) {
+					velocity.setXY(-1, -Math.tan(Math.PI - newAngle));
+				} else if (newAngle >= Math.PI && newAngle <= 3 * Math.PI / 2) {
+					velocity.setXY(-1, Math.tan(newAngle - Math.PI));
+				} else if (newAngle > 3 * Math.PI / 2) {
+					velocity.setXY(1, Math.tan(2 * Math.PI - newAngle));
+				} else {
+					// newAngle is negative
+					if (-newAngle < Math.PI / 2) {
+						velocity.setXY(1, Math.tan(-newAngle));
+					} else {
+						velocity.setXY(-1, Math.tan(Math.PI + newAngle));
+					}
+				}
+				bulletList[i] = new FireBullet((FireBullet) bullet, velocity.normalize(bullet.getSpeed()));
+			}
+			return bulletList;
 		}
 		return null;
 	}

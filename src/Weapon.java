@@ -46,7 +46,7 @@ public abstract class Weapon extends Item {
 		return name;
 	}
 	
-	public abstract Bullet shoot();
+	public abstract Object shoot();
 	public abstract boolean isReady();
 	public abstract void update();
 

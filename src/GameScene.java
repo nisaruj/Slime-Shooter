@@ -114,15 +114,20 @@ public class GameScene extends StackPane {
 		keyboardHandle();
 
 		if (character.getWeapon().isReady()) {
-			addBullet(character.getWeapon().shoot());
+			Object o = character.getWeapon().shoot();
+			if (o instanceof FireBullet[]) {
+				for (FireBullet b: (FireBullet[])o) {
+					addBullet(b);
+				}
+			} else {
+				addBullet((Bullet)o);
+			}
 		}
 
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 		
 		// Render Map
 		map.render(gc);
-		
-		//System.out.println(character.getWeapon().getName());
 		
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
