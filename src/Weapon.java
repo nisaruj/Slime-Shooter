@@ -1,7 +1,7 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public abstract class Weapon {
+public abstract class Weapon extends Item {
 	
 	protected String name;
 	protected Image[] weaponImage = new Image[5];
@@ -9,8 +9,13 @@ public abstract class Weapon {
 	protected Bullet bullet;
 	
 	public Weapon(String name) {
+		this(name, 0, 0);
+	}
+	
+	public Weapon(String name, int x, int y) {
+		super(name, x, y);
 		this.name = name;
-		this.bullet = new Bullet();
+		this.bullet = new Bullet(10, 10);
 		this.damage = 10;
 		this.weaponImage[0] = new Image("file:res/weapons/" + name + "/" + name + "_down.png");
 		this.weaponImage[1] = new Image("file:res/weapons/" + name + "/" + name + "_diagdown.png");
@@ -32,7 +37,17 @@ public abstract class Weapon {
 				imgHeight * MainApplication.SIZE_MULTIPLIER);
 	}
 	
+	@Override
+	public void equip() {
+		GameScene.getCharacter().setWeapon(this);
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public abstract Bullet shoot();
 	public abstract boolean isReady();
 	public abstract void update();
+
 }

@@ -9,6 +9,12 @@ public class SingleShotWeapon extends Weapon {
 		this.fireRate = 5;
 		this.reloadingTime = 0;
 	}
+	
+	public SingleShotWeapon(String name, int x, int y) {
+		super(name, x, y);
+		this.fireRate = 5;
+		this.reloadingTime = 0;
+	}
 
 	@Override
 	public boolean isReady() {

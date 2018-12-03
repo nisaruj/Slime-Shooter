@@ -1,7 +1,7 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class Tile {
+public class Tile implements Renderable {
 
 	public static final Image TILESET = new Image("file:res/tileset.png");
 	public static final int TILE_SIZE = 12;
@@ -14,7 +14,8 @@ public class Tile {
 		// type 0: grass, type 1: dirt
 		this.type = type;
 	}
-
+	
+	@Override
 	public void render(GraphicsContext gc, int x, int y) throws Exception {
 		if (x < -TILE_SIZE || y < -TILE_SIZE || x > MainApplication.SCREEN_WIDTH || y > MainApplication.SCREEN_HEIGHT) {
 			throw new Exception("Render out of screen");

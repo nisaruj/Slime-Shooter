@@ -17,15 +17,18 @@ public class GameScene extends StackPane {
 	private Canvas canvas;
 	private GraphicsContext gc;
 	private ArrayList<Bullet> bullets;
-	private Character character;
+	private ArrayList<Item> items;
+	private static Character character;
 	private static Coord currentMousePosition;
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
 
 	public GameScene() {
 		bullets = new ArrayList<Bullet>();
+		items = new ArrayList<Item>();
 		character = new Character();
 		map = new Map(character);
+		items.add(new Flamethrower("flamethrower", 500, 300));
 
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
@@ -115,19 +118,47 @@ public class GameScene extends StackPane {
 		}
 
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+		
+		// Render Map
 		map.render(gc);
-
+		
+		//System.out.println(character.getWeapon().getName());
+		
+		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
+		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
+		
+		// Render Items
+		Iterator<Item> itr2 = items.iterator();
+		while (itr2.hasNext()) {
+			Item item = (Item) itr2.next();
+			if (item.isCollidePlayer()) {
+				itr2.remove();
+				item.equip();
+			} else {
+				try {
+					item.render(gc, startRenderX + (int) item.getPosition().getX(), startRenderY + (int) item.getPosition().getY());
+				} catch (Exception e) {
+					// Do nothing
+				}
+			}
+		}
+		
+		// Render Bullets
 		Iterator<Bullet> itr = bullets.iterator();
 		while (itr.hasNext()) {
 			Bullet b = (Bullet) itr.next();
 			if (b.getPosition().getX() < 0 || b.getPosition().getX() > MainApplication.SCREEN_WIDTH
 					|| b.getPosition().getY() < 0 || b.getPosition().getY() > MainApplication.SCREEN_HEIGHT) {
 				itr.remove();
+			} else if (b instanceof FireBullet && ((FireBullet) b).isDisappear()) {
+				itr.remove();
 			} else {
 				b.update();
 				b.render(gc);
 			}
 		}
+		
+		//Render player
 		character.update(currentMousePosition);
 		character.render(gc);
 
@@ -137,7 +168,7 @@ public class GameScene extends StackPane {
 		return currentMousePosition;
 	}
 
-	public Character getCharacter() {
+	public static Character getCharacter() {
 		return character;
 	}
 }

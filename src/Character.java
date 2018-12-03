@@ -153,6 +153,10 @@ public class Character {
 	public void idle() {
 		isMoving = 0;
 	}
+	
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
 
 	public Weapon getWeapon() {
 		return weapon;
