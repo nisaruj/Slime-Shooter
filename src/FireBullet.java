@@ -1,9 +1,10 @@
+
 import javafx.scene.image.Image;
 
 public class FireBullet extends Bullet {
 	
 	protected int lifeTime;
-	private static final double FIRE_RADIUS = 10;
+	private static final double FIRE_RADIUS = 17;
 	protected static final Image FIRE_BULLET = new Image("file:res/bullets/flamethrower_bullet.png");
 	
 	public FireBullet(double speed, int damage, int lifeTime) {
@@ -13,7 +14,7 @@ public class FireBullet extends Bullet {
 	}
 	
 	public FireBullet(FireBullet bullet, Coord velocity) {
-		super(new Coord(MainApplication.SCREEN_WIDTH / 2 - 20, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
+		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
 		this.bulletImage = FIRE_BULLET;
 		this.lifeTime = bullet.lifeTime;
 		this.speed = bullet.speed;
@@ -26,8 +27,7 @@ public class FireBullet extends Bullet {
 	
 	@Override
 	public void update() {
-		position.setX(position.getX() + velocity.getX());
-		position.setY(position.getY() + velocity.getY());
+		updatePosition();
 		lifeTime--;
 	}
 	

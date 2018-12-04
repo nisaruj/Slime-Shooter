@@ -29,7 +29,7 @@ public abstract class Item implements Renderable {
 	public boolean isCollidePlayer() {
 		int posX = (int) GameScene.getCharacter().getPosition().getX();
 		int posY = (int) GameScene.getCharacter().getPosition().getY();
-		return posX > position.getX() - itemImage.getWidth() / 2 && posX < position.getX() + itemImage.getWidth() &&
+		return posX > position.getX() - itemImage.getWidth() / 2 && posX < position.getX() + itemImage.getWidth() / 2 &&
 				posY > position.getY() - itemImage.getHeight() / 2 &&  posY < position.getY() + itemImage.getHeight() / 2;
 	}
 	

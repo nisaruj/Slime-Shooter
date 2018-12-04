@@ -5,17 +5,19 @@ public class Flamethrower extends Weapon {
 	private static final int DEFAULT_LIFETIME = 50;
 	private static final double ACCURACY_ERROR = Math.PI / 6;
 	private static final int SHOT_COUNT = 3;
+	private static final int DAMAGE = 15;
+	private static final int BULLET_SPEED = 3;
 	protected int fireRate = 10;
 	protected int reloadingTime;
 
 	public Flamethrower(String name) {
 		super(name);
-		this.bullet = new FireBullet(3, 1, DEFAULT_LIFETIME);
+		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
 	}
 
 	public Flamethrower(String name, int x, int y) {
 		super(name, x, y);
-		this.bullet = new FireBullet(3, 1, DEFAULT_LIFETIME);
+		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ public class GameScene extends StackPane {
 	private GraphicsContext gc;
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Item> items;
+	private ArrayList<Enemy> enemies;
 	private static Character character;
 	private static Coord currentMousePosition;
 	private Map map;
@@ -26,9 +27,13 @@ public class GameScene extends StackPane {
 	public GameScene() {
 		bullets = new ArrayList<Bullet>();
 		items = new ArrayList<Item>();
+		enemies = new ArrayList<Enemy>();
 		character = new Character();
 		map = new Map(character);
 		items.add(new Flamethrower("flamethrower", 500, 300));
+		enemies.add(new Enemy(400, 600));
+		enemies.add(new Enemy(500, 600));
+		enemies.add(new Enemy(600, 600));
 
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
@@ -116,22 +121,22 @@ public class GameScene extends StackPane {
 		if (character.getWeapon().isReady()) {
 			Object o = character.getWeapon().shoot();
 			if (o instanceof FireBullet[]) {
-				for (FireBullet b: (FireBullet[])o) {
+				for (FireBullet b : (FireBullet[]) o) {
 					addBullet(b);
 				}
 			} else {
-				addBullet((Bullet)o);
+				addBullet((Bullet) o);
 			}
 		}
 
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-		
+
 		// Render Map
 		map.render(gc);
-		
+
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
-		
+
 		// Render Items
 		Iterator<Item> itr2 = items.iterator();
 		while (itr2.hasNext()) {
@@ -141,17 +146,46 @@ public class GameScene extends StackPane {
 				item.equip();
 			} else {
 				try {
-					item.render(gc, startRenderX + (int) item.getPosition().getX(), startRenderY + (int) item.getPosition().getY());
+					item.render(gc, startRenderX + (int) item.getPosition().getX(),
+							startRenderY + (int) item.getPosition().getY());
 				} catch (Exception e) {
 					// Do nothing
 				}
 			}
 		}
 		
+		// Render Enemies
+		Iterator<Enemy> itr3 = enemies.iterator();
+		while (itr3.hasNext()) {
+			Enemy enemy = (Enemy) itr3.next();
+			if (enemy.isDead()) {
+				itr3.remove();
+			} else {
+				enemy.update();
+				try {
+					enemy.render(gc, startRenderX + (int) enemy.getPosition().getX(),
+							startRenderY + (int) enemy.getPosition().getY());
+				} catch (Exception e) {
+					// Do nothing
+				}
+			}
+		}
+
 		// Render Bullets
 		Iterator<Bullet> itr = bullets.iterator();
 		while (itr.hasNext()) {
 			Bullet b = (Bullet) itr.next();
+			boolean isCollideEnemy = false;
+
+			for (Enemy e : enemies) {
+				if (e.isCollideBullet(b)) {
+					itr.remove();
+					isCollideEnemy = true;
+				}
+			}
+			if (isCollideEnemy)
+				continue;
+
 			if (b.getPosition().getX() < 0 || b.getPosition().getX() > MainApplication.SCREEN_WIDTH
 					|| b.getPosition().getY() < 0 || b.getPosition().getY() > MainApplication.SCREEN_HEIGHT) {
 				itr.remove();
@@ -160,10 +194,21 @@ public class GameScene extends StackPane {
 			} else {
 				b.update();
 				b.render(gc);
+				
+				/// DEBUG ///
+				int radius = 5;
+				int x = startRenderX + (int)b.getAbsolutePosition().getX() - radius;
+				int y = startRenderY + (int)b.getAbsolutePosition().getY() - radius;
+				if (x < -5 || y < -5 || x > MainApplication.SCREEN_WIDTH || y > MainApplication.SCREEN_HEIGHT) {
+					
+				} else {
+					gc.fillOval(x, y, radius, radius);
+				}
+				/// END DEBUG ///
 			}
 		}
-		
-		//Render player
+
+		// Render player
 		character.update(currentMousePosition);
 		character.render(gc);
 

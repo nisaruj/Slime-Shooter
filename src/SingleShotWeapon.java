@@ -6,7 +6,7 @@ public class SingleShotWeapon extends Weapon {
 
 	public SingleShotWeapon(String name) {
 		super(name);
-		this.fireRate = 5;
+		this.fireRate = 10;
 		this.reloadingTime = 0;
 	}
 	
