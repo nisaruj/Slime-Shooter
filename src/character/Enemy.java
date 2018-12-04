@@ -1,4 +1,5 @@
 package character;
+
 import bullet.Bullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,7 +17,9 @@ public class Enemy implements Renderable {
 
 	private Coord position;
 	private Image[] slimeImage;
+	private Image healthBar;
 	private int health;
+	private int maxHealth;
 	private boolean isDead;
 
 	public Enemy(int x, int y) {
@@ -28,7 +31,9 @@ public class Enemy implements Renderable {
 		slimeImage[0] = new Image("file:res/monsters/" + name + "_front.png");
 		slimeImage[1] = new Image("file:res/monsters/" + name + "_side.png");
 		slimeImage[2] = new Image("file:res/monsters/" + name + "_back.png");
+		healthBar = new Image("file:res/other/healthbar.png");
 		this.position = new Coord(x, y);
+		this.maxHealth = 100;
 		this.health = 100;
 		this.isDead = false;
 		this.isMoving = 0;
@@ -84,6 +89,9 @@ public class Enemy implements Renderable {
 				|| y > MainApplication.SCREEN_HEIGHT) {
 			throw new Exception("Render out of screen");
 		}
+		double healthPercent = (double)health / maxHealth;
+		gc.drawImage(healthBar, healthPercent * (healthBar.getWidth() - 1), 0, 1, 5, x - healthBar.getWidth() / 2,
+				y - healthBar.getHeight() / 2 - MONSTER_SIZE / 2 - 10, healthPercent * healthBar.getWidth(), 5);
 		gc.drawImage(slimeImage[0], moveFrame * MONSTER_SIZE, 0, MONSTER_SIZE, MONSTER_SIZE, x - MONSTER_SIZE / 2,
 				y - MONSTER_SIZE / 2, MONSTER_SIZE, MONSTER_SIZE);
 	}
