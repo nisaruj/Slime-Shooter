@@ -15,6 +15,8 @@ public class Character {
 	private int type;
 	private int facingDirection;
 	private int mirrorDirection;
+	private int health;
+	private int maxHealth;
 	private Weapon weapon;
 	private int isMoving;
 	private int movingSpeed;
@@ -28,6 +30,8 @@ public class Character {
 		this.type = type;
 		this.position = new Coord(300, 300);
 		this.speed = 1;
+		this.health = 100;
+		this.maxHealth = 100;
 		setMovingSpeed(5);
 		this.facingDirection = 0;
 		this.mirrorDirection = 1;

@@ -21,9 +21,9 @@ public class MainApplication extends Application {
 
 		Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		GameScene gameScene = new GameScene();
-
-		// TODO: Game Menu
-		root.getChildren().addAll(canvas, gameScene);
+		MainMenu mainMenu = new MainMenu(gameScene);
+		
+		root.getChildren().addAll(canvas, mainMenu, gameScene);
 
 		primaryStage.setResizable(false);
 		primaryStage.show();

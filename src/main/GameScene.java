@@ -1,4 +1,5 @@
 package main;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,9 +41,11 @@ public class GameScene extends StackPane {
 		map = new Map(character);
 		items.add(new Flamethrower(500, 300));
 		items.add(new Matter(600, 300));
-		enemies.add(new Enemy(400, 600));
-		enemies.add(new Enemy(500, 600));
-		enemies.add(new Enemy(600, 600));
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
+			}
+		}
 
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
@@ -79,7 +82,7 @@ public class GameScene extends StackPane {
 
 		this.getChildren().addAll(canvas);
 		this.setStyle("-fx-background-color: grey");
-		startGameLoop();
+		//startGameLoop();
 	}
 
 	public void startGameLoop() {
@@ -145,7 +148,7 @@ public class GameScene extends StackPane {
 
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
-		
+
 		renderItems(startRenderX, startRenderY);
 		renderEnemies(startRenderX, startRenderY);
 		renderBullets(startRenderX, startRenderY);
@@ -155,7 +158,7 @@ public class GameScene extends StackPane {
 		character.render(gc);
 
 	}
-	
+
 	private void renderItems(int startRenderX, int startRenderY) {
 		// Render Items
 		Iterator<Item> itr1 = items.iterator();
@@ -174,7 +177,7 @@ public class GameScene extends StackPane {
 			}
 		}
 	}
-	
+
 	private void renderEnemies(int startRenderX, int startRenderY) {
 		// Render Enemies
 		Iterator<Enemy> itr = enemies.iterator();
@@ -193,7 +196,7 @@ public class GameScene extends StackPane {
 			}
 		}
 	}
-	
+
 	private void renderBullets(int startRenderX, int startRenderY) {
 		// Render Bullets
 		Iterator<Bullet> itr = bullets.iterator();
@@ -218,17 +221,18 @@ public class GameScene extends StackPane {
 			} else {
 				b.update();
 				try {
-					b.render(gc, startRenderX + (int)b.getAbsolutePosition().getX(), startRenderY + (int)b.getAbsolutePosition().getY());
+					b.render(gc, startRenderX + (int) b.getAbsolutePosition().getX(),
+							startRenderY + (int) b.getAbsolutePosition().getY());
 				} catch (Exception e1) {
 					// Do nothing
 				}
-				
+
 				/// DEBUG ///
 				int radius = 5;
-				int x = startRenderX + (int)b.getAbsolutePosition().getX() - radius;
-				int y = startRenderY + (int)b.getAbsolutePosition().getY() - radius;
+				int x = startRenderX + (int) b.getAbsolutePosition().getX() - radius;
+				int y = startRenderY + (int) b.getAbsolutePosition().getY() - radius;
 				if (x < -5 || y < -5 || x > MainApplication.SCREEN_WIDTH || y > MainApplication.SCREEN_HEIGHT) {
-					
+
 				} else {
 					gc.fillOval(x, y, radius, radius);
 				}

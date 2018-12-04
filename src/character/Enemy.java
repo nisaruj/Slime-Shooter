@@ -18,6 +18,7 @@ public class Enemy implements Renderable {
 	private Coord position;
 	private Image[] slimeImage;
 	private Image healthBar;
+	private double speed;
 	private int health;
 	private int maxHealth;
 	private boolean isDead;
@@ -38,6 +39,7 @@ public class Enemy implements Renderable {
 		this.isDead = false;
 		this.isMoving = 0;
 		this.movingSpeed = 3;
+		this.speed = 0.5;
 	}
 
 	public void takeDamage(int damage) {
@@ -79,6 +81,9 @@ public class Enemy implements Renderable {
 
 	public void update() {
 		isMoving++;
+		Coord direction = new Coord(GameScene.getCharacter().getPosition().getX() - this.position.getX(),
+				GameScene.getCharacter().getPosition().getY() - this.position.getY()).normalize(speed);
+		this.position.setXY(this.position.getX() + direction.getX(), this.position.getY() + direction.getY());
 	}
 
 	@Override
@@ -89,7 +94,7 @@ public class Enemy implements Renderable {
 				|| y > MainApplication.SCREEN_HEIGHT) {
 			throw new Exception("Render out of screen");
 		}
-		double healthPercent = (double)health / maxHealth;
+		double healthPercent = (double) health / maxHealth;
 		gc.drawImage(healthBar, healthPercent * (healthBar.getWidth() - 1), 0, 1, 5, x - healthBar.getWidth() / 2,
 				y - healthBar.getHeight() / 2 - MONSTER_SIZE / 2 - 10, healthPercent * healthBar.getWidth(), 5);
 		gc.drawImage(slimeImage[0], moveFrame * MONSTER_SIZE, 0, MONSTER_SIZE, MONSTER_SIZE, x - MONSTER_SIZE / 2,
