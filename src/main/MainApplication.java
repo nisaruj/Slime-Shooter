@@ -11,6 +11,7 @@ public class MainApplication extends Application {
 	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 700;
 	public static final double SIZE_MULTIPLIER = 1;
+	private static GameScene gameScene;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -20,7 +21,7 @@ public class MainApplication extends Application {
 		primaryStage.setTitle("Project");
 
 		Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-		GameScene gameScene = new GameScene();
+		gameScene = new GameScene();
 		MainMenu mainMenu = new MainMenu(gameScene);
 		
 		root.getChildren().addAll(canvas, mainMenu, gameScene);
@@ -32,5 +33,9 @@ public class MainApplication extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	public static void restart() {
+		gameScene = new GameScene();
 	}
 }

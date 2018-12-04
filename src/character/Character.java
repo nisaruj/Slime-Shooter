@@ -17,6 +17,7 @@ public class Character {
 	private int mirrorDirection;
 	private int health;
 	private int maxHealth;
+	private boolean isDead;
 	private Weapon weapon;
 	private int isMoving;
 	private int movingSpeed;
@@ -32,6 +33,7 @@ public class Character {
 		this.speed = 1;
 		this.health = 100;
 		this.maxHealth = 100;
+		this.isDead = false;
 		setMovingSpeed(5);
 		this.facingDirection = 0;
 		this.mirrorDirection = 1;
@@ -137,6 +139,17 @@ public class Character {
 
 		}
 
+	}
+	
+	public void takeDamage(int damage) {
+		this.health = Math.max(0, this.health - damage);
+		if (health == 0) {
+			isDead = true;
+		}
+	}
+	
+	public boolean isDead() {
+		return isDead;
 	}
 
 	public void move() {

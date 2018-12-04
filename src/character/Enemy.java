@@ -19,6 +19,7 @@ public class Enemy implements Renderable {
 	private Image[] slimeImage;
 	private Image healthBar;
 	private double speed;
+	private int damage;
 	private int health;
 	private int maxHealth;
 	private boolean isDead;
@@ -35,6 +36,7 @@ public class Enemy implements Renderable {
 		healthBar = new Image("file:res/other/healthbar.png");
 		this.position = new Coord(x, y);
 		this.maxHealth = 100;
+		this.damage = 20;
 		this.health = 100;
 		this.isDead = false;
 		this.isMoving = 0;
@@ -77,6 +79,10 @@ public class Enemy implements Renderable {
 
 	public Coord getPosition() {
 		return position;
+	}
+	
+	public int getDamage() {
+		return damage;
 	}
 
 	public void update() {

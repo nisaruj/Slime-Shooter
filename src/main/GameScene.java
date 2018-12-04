@@ -12,41 +12,36 @@ import character.Character;
 import item.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import render.Effect;
+import render.Explosion;
 import render.Map;
 import util.Coord;
 
 public class GameScene extends StackPane {
 
+	private static final Image CROSSHAIR = new Image("file:res/other/crosshair.png");
 	private Canvas canvas;
 	private GraphicsContext gc;
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Item> items;
 	private ArrayList<Enemy> enemies;
+	private ArrayList<Effect> effects;
 	private static Character character;
 	private static Coord currentMousePosition;
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
+	private boolean isPaused = false;
 
 	public GameScene() {
-		bullets = new ArrayList<Bullet>();
-		items = new ArrayList<Item>();
-		enemies = new ArrayList<Enemy>();
-		character = new Character();
-		map = new Map(character);
-		items.add(new Flamethrower(500, 300));
-		items.add(new Matter(600, 300));
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
-			}
-		}
-
+		gameSetup();
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
 		gc = canvas.getGraphicsContext2D();
@@ -82,7 +77,6 @@ public class GameScene extends StackPane {
 
 		this.getChildren().addAll(canvas);
 		this.setStyle("-fx-background-color: grey");
-		//startGameLoop();
 	}
 
 	public void startGameLoop() {
@@ -92,10 +86,28 @@ public class GameScene extends StackPane {
 
 			@Override
 			public void handle(long now) {
-				update();
+				if (!isPaused) {
+					update();
+				}
 			}
 
 		}.start();
+	}
+
+	public void gameSetup() {
+		bullets = new ArrayList<Bullet>();
+		items = new ArrayList<Item>();
+		enemies = new ArrayList<Enemy>();
+		effects = new ArrayList<Effect>();
+		character = new Character();
+		map = new Map(character);
+		items.add(new Flamethrower(500, 300));
+		items.add(new Matter(600, 300));
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
+			}
+		}
 	}
 
 	public void addBullet(Bullet bullet) {
@@ -149,6 +161,7 @@ public class GameScene extends StackPane {
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
 
+		renderEffects(startRenderX, startRenderY);
 		renderItems(startRenderX, startRenderY);
 		renderEnemies(startRenderX, startRenderY);
 		renderBullets(startRenderX, startRenderY);
@@ -157,15 +170,19 @@ public class GameScene extends StackPane {
 		character.update(currentMousePosition);
 		character.render(gc);
 
+		if (character.isDead()) {
+			gameSetup();
+		}
+
 	}
 
 	private void renderItems(int startRenderX, int startRenderY) {
 		// Render Items
-		Iterator<Item> itr1 = items.iterator();
-		while (itr1.hasNext()) {
-			Item item = (Item) itr1.next();
+		Iterator<Item> itr = items.iterator();
+		while (itr.hasNext()) {
+			Item item = (Item) itr.next();
 			if (item.isCollidePlayer()) {
-				itr1.remove();
+				itr.remove();
 				item.equip();
 			} else {
 				try {
@@ -184,6 +201,10 @@ public class GameScene extends StackPane {
 		while (itr.hasNext()) {
 			Enemy enemy = (Enemy) itr.next();
 			if (enemy.isDead()) {
+				effects.add(new Explosion(enemy.getPosition()));
+				itr.remove();
+			} else if (enemy.isCollidePlayer()) {
+				character.takeDamage(enemy.getDamage());
 				itr.remove();
 			} else {
 				enemy.update();
@@ -206,7 +227,11 @@ public class GameScene extends StackPane {
 
 			for (Enemy e : enemies) {
 				if (e.isCollideBullet(b)) {
-					itr.remove();
+					try {
+						itr.remove();
+					} catch (IllegalStateException error) {
+
+					}
 					isCollideEnemy = true;
 				}
 			}
@@ -237,6 +262,25 @@ public class GameScene extends StackPane {
 					gc.fillOval(x, y, radius, radius);
 				}
 				/// END DEBUG ///
+			}
+		}
+	}
+
+	private void renderEffects(int startRenderX, int startRenderY) {
+		// Render Items
+		Iterator<Effect> itr = effects.iterator();
+		while (itr.hasNext()) {
+			Effect effect = (Effect) itr.next();
+			effect.update();
+			if (effect.isRenderFinished()) {
+				itr.remove();
+			} else {
+				try {
+					effect.render(gc, startRenderX + (int) effect.getPosition().getX(),
+							startRenderY + (int) effect.getPosition().getY());
+				} catch (Exception e) {
+					// Do nothing
+				}
 			}
 		}
 	}

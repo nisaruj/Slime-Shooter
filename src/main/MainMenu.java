@@ -9,6 +9,8 @@ public class MainMenu extends StackPane {
 	public MainMenu(GameScene gameScene) {
 		this.gameScene = gameScene;
 		
+		/* TODO Main menu here :D */
+		
 		playGame(); // Calling this method will start the game.
 	}
 	
