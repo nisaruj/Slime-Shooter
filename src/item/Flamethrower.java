@@ -17,13 +17,13 @@ public class Flamethrower extends Weapon {
 	protected int fireRate = 10;
 	protected int reloadingTime;
 
-	public Flamethrower(String name) {
-		super(name);
+	public Flamethrower() {
+		super("flamethrower");
 		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
 	}
 
-	public Flamethrower(String name, int x, int y) {
-		super(name, x, y);
+	public Flamethrower(int x, int y) {
+		super("flamethrower", x, y);
 		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
 	}
 

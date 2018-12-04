@@ -8,7 +8,6 @@ import main.GameScene;
 import main.MainApplication;
 import render.Renderable;
 import util.Coord;
-import character.Character;
 
 public class Bullet implements Renderable {
 
@@ -19,7 +18,7 @@ public class Bullet implements Renderable {
 	protected Coord absolutePosition;
 	protected Coord velocity;
 	protected double speed;
-	private double angle;
+	protected double angle;
 	protected int damage;
 
 	public Bullet(Coord velocity) {
@@ -28,11 +27,13 @@ public class Bullet implements Renderable {
 
 	public Bullet(Bullet bullet, Coord velocity) {
 		this(velocity);
+		this.bulletImage = bullet.bulletImage;
 		this.speed = bullet.speed;
 		this.damage = bullet.damage;
 	}
 
-	public Bullet(double speed, int damage) {
+	public Bullet(String type, double speed, int damage) {
+		this.bulletImage = new Image("file:res/bullets/" + type + ".png");
 		this.speed = speed;
 		this.damage = damage;
 	}
@@ -82,6 +83,10 @@ public class Bullet implements Renderable {
 	
 	public int getDamage() {
 		return damage;
+	}
+	
+	public void setBulletImage(Image bulletImage) {
+		this.bulletImage = bulletImage;
 	}
 	
 	public double getWidth() {

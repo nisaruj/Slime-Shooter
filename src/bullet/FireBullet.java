@@ -12,15 +12,14 @@ public class FireBullet extends Bullet {
 	protected static final Image FIRE_BULLET = new Image("file:res/bullets/flamethrower_bullet.png");
 	
 	public FireBullet(double speed, int damage, int lifeTime) {
-		super(speed, damage);
+		super("flamethrower_bullet", speed, damage);
 		this.lifeTime = lifeTime;
-		this.bulletImage = FIRE_BULLET;
 	}
 	
 	public FireBullet(FireBullet bullet, Coord velocity) {
 		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
-		this.bulletImage = FIRE_BULLET;
 		this.lifeTime = bullet.lifeTime;
+		this.bulletImage = bullet.bulletImage;
 		this.speed = bullet.speed;
 		this.damage = bullet.damage;
 	}

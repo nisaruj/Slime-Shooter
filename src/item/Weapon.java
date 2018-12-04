@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import bullet.Bullet;
 import main.GameScene;
 import main.MainApplication;
-import character.Character;
 
 
 public abstract class Weapon extends Item {
@@ -22,7 +21,7 @@ public abstract class Weapon extends Item {
 	public Weapon(String name, int x, int y) {
 		super(name, x, y);
 		this.name = name;
-		this.bullet = new Bullet(10, 10);
+		this.bullet = new Bullet("bulletc", 10, 10);
 		this.damage = 10;
 		this.weaponImage[0] = new Image("file:res/weapons/" + name + "/" + name + "_down.png");
 		this.weaponImage[1] = new Image("file:res/weapons/" + name + "/" + name + "_diagdown.png");

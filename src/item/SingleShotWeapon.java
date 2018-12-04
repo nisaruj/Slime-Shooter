@@ -6,19 +6,15 @@ import util.Coord;
 
 public class SingleShotWeapon extends Weapon {
 
-	protected int fireRate;
-	protected int reloadingTime;
+	protected int fireRate = 10;
+	protected int reloadingTime = 0;
 
 	public SingleShotWeapon(String name) {
 		super(name);
-		this.fireRate = 10;
-		this.reloadingTime = 0;
 	}
 	
 	public SingleShotWeapon(String name, int x, int y) {
 		super(name, x, y);
-		this.fireRate = 5;
-		this.reloadingTime = 0;
 	}
 
 	@Override
