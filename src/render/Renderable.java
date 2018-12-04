@@ -1,3 +1,4 @@
+package render;
 import javafx.scene.canvas.GraphicsContext;
 
 //Implement this class when render something on the screen.

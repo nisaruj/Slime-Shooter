@@ -1,4 +1,11 @@
+package item;
+
 import java.util.Random;
+
+import bullet.FireBullet;
+import main.GameScene;
+import main.MainApplication;
+import util.Coord;
 
 public class Flamethrower extends Weapon {
 

@@ -1,5 +1,12 @@
+package item;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import bullet.Bullet;
+import main.GameScene;
+import main.MainApplication;
+import character.Character;
+
 
 public abstract class Weapon extends Item {
 	

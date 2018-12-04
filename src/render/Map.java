@@ -1,8 +1,11 @@
+package render;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import character.Character;
 import javafx.scene.canvas.GraphicsContext;
+import main.MainApplication;
 
 public class Map {
 

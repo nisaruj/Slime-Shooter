@@ -1,8 +1,15 @@
+package main;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import bullet.Bullet;
+import bullet.FireBullet;
+import character.Enemy;
+import character.Character;
+import item.Flamethrower;
+import item.Item;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -11,6 +18,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import render.Map;
+import util.Coord;
 
 public class GameScene extends StackPane {
 
@@ -136,13 +145,24 @@ public class GameScene extends StackPane {
 
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
+		
+		renderItems(startRenderX, startRenderY);
+		renderEnemies(startRenderX, startRenderY);
+		renderBullets(startRenderX, startRenderY);
 
+		// Render player
+		character.update(currentMousePosition);
+		character.render(gc);
+
+	}
+	
+	private void renderItems(int startRenderX, int startRenderY) {
 		// Render Items
-		Iterator<Item> itr2 = items.iterator();
-		while (itr2.hasNext()) {
-			Item item = (Item) itr2.next();
+		Iterator<Item> itr1 = items.iterator();
+		while (itr1.hasNext()) {
+			Item item = (Item) itr1.next();
 			if (item.isCollidePlayer()) {
-				itr2.remove();
+				itr1.remove();
 				item.equip();
 			} else {
 				try {
@@ -153,13 +173,15 @@ public class GameScene extends StackPane {
 				}
 			}
 		}
-		
+	}
+	
+	private void renderEnemies(int startRenderX, int startRenderY) {
 		// Render Enemies
-		Iterator<Enemy> itr3 = enemies.iterator();
-		while (itr3.hasNext()) {
-			Enemy enemy = (Enemy) itr3.next();
+		Iterator<Enemy> itr = enemies.iterator();
+		while (itr.hasNext()) {
+			Enemy enemy = (Enemy) itr.next();
 			if (enemy.isDead()) {
-				itr3.remove();
+				itr.remove();
 			} else {
 				enemy.update();
 				try {
@@ -170,7 +192,9 @@ public class GameScene extends StackPane {
 				}
 			}
 		}
-
+	}
+	
+	private void renderBullets(int startRenderX, int startRenderY) {
 		// Render Bullets
 		Iterator<Bullet> itr = bullets.iterator();
 		while (itr.hasNext()) {
@@ -193,7 +217,11 @@ public class GameScene extends StackPane {
 				itr.remove();
 			} else {
 				b.update();
-				b.render(gc);
+				try {
+					b.render(gc, startRenderX + (int)b.getAbsolutePosition().getX(), startRenderY + (int)b.getAbsolutePosition().getY());
+				} catch (Exception e1) {
+					// Do nothing
+				}
 				
 				/// DEBUG ///
 				int radius = 5;
@@ -207,11 +235,6 @@ public class GameScene extends StackPane {
 				/// END DEBUG ///
 			}
 		}
-
-		// Render player
-		character.update(currentMousePosition);
-		character.render(gc);
-
 	}
 
 	public static Coord getMousePosition() {

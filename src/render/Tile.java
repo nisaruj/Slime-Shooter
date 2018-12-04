@@ -1,5 +1,8 @@
+package render;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.MainApplication;
+import util.Coord;
 
 public class Tile implements Renderable {
 

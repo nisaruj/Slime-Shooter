@@ -1,5 +1,11 @@
+package character;
+import bullet.Bullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.GameScene;
+import main.MainApplication;
+import render.Renderable;
+import util.Coord;
 
 public class Enemy implements Renderable {
 
@@ -45,7 +51,7 @@ public class Enemy implements Renderable {
 		boolean isCollide = posX > position.getX() - MONSTER_SIZE / 2 && posX < position.getX() + MONSTER_SIZE / 2
 				&& posY > position.getY() - MONSTER_SIZE / 2 && posY < position.getY() + MONSTER_SIZE / 2;
 		if (isCollide) {
-			takeDamage(bullet.damage);
+			takeDamage(bullet.getDamage());
 			// System.out.println("HIT!");
 		}
 		return isCollide;

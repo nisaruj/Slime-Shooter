@@ -1,5 +1,9 @@
+package bullet;
+
 
 import javafx.scene.image.Image;
+import main.MainApplication;
+import util.Coord;
 
 public class FireBullet extends Bullet {
 	

@@ -1,3 +1,4 @@
+package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,11 +20,10 @@ public class MainApplication extends Application {
 		primaryStage.setTitle("Project");
 
 		Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-		DebugLine debugLine = new DebugLine(SCREEN_WIDTH, SCREEN_HEIGHT);
 		GameScene gameScene = new GameScene();
 
 		// TODO: Game Menu
-		root.getChildren().addAll(canvas, debugLine, gameScene);
+		root.getChildren().addAll(canvas, gameScene);
 
 		primaryStage.setResizable(false);
 		primaryStage.show();

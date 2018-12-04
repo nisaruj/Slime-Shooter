@@ -1,3 +1,4 @@
+package util;
 import javafx.scene.shape.Line;
 
 public class DebugLine extends Line {

@@ -1,9 +1,16 @@
+package bullet;
+
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import main.GameScene;
+import main.MainApplication;
+import render.Renderable;
+import util.Coord;
+import character.Character;
 
-public class Bullet {
+public class Bullet implements Renderable {
 
 	protected Image bulletImage = new Image("file:res/bullets/bulletc.png");
 	private static final double FIRE_RADIUS = 3;
@@ -72,9 +79,17 @@ public class Bullet {
 	public double getSpeed() {
 		return speed;
 	}
-
-	public void render(GraphicsContext gc) {
-		drawRotatedImage(gc, bulletImage, angle, position.getX(), position.getY());
+	
+	public int getDamage() {
+		return damage;
+	}
+	
+	public double getWidth() {
+		return bulletImage.getWidth();
+	}
+	
+	public double getHeight() {
+		return bulletImage.getHeight();
 	}
 
 	private void rotate(GraphicsContext gc, double angle, double px, double py) {
@@ -92,6 +107,11 @@ public class Bullet {
 	@Override
 	public String toString() {
 		return position.toString();
+	}
+
+	@Override
+	public void render(GraphicsContext gc, int x, int y) throws Exception {
+		drawRotatedImage(gc, bulletImage, angle, x, y);
 	}
 
 }

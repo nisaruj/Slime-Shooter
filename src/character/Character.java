@@ -1,5 +1,10 @@
+package character;
+import item.SingleShotWeapon;
+import item.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.MainApplication;
+import util.Coord;
 
 public class Character {
 
