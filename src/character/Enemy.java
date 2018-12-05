@@ -23,6 +23,8 @@ public class Enemy implements Renderable {
 	private int health;
 	private int maxHealth;
 	private boolean isDead;
+	private Coord knockBackVelocity;
+	private double mass;
 
 	public Enemy(int x, int y) {
 		this("slime1", x, y);
@@ -42,6 +44,8 @@ public class Enemy implements Renderable {
 		this.isMoving = 0;
 		this.movingSpeed = 3;
 		this.speed = 0.5;
+		this.mass = 1;
+		this.knockBackVelocity = new Coord(0, 0);
 	}
 
 	public void takeDamage(int damage) {
@@ -53,16 +57,22 @@ public class Enemy implements Renderable {
 			isDead = true;
 		}
 	}
+	
+	public void takeKnockBack(Coord bulletVelocity, double bulletMass) {
+		Coord momentum = bulletVelocity.productScalar(bulletMass / this.mass);
+		knockBackVelocity.plusVector(momentum);
+	}
+	
+	public void reduceKnockBackVelocity() {
+		double newSpeed = Math.max(0, knockBackVelocity.norm() - 1);
+		knockBackVelocity = knockBackVelocity.normalize(newSpeed);
+	}
 
 	public boolean isCollideBullet(Bullet bullet) {
 		int posX = (int) bullet.getAbsolutePosition().getX();
 		int posY = (int) bullet.getAbsolutePosition().getY();
 		boolean isCollide = posX > position.getX() - MONSTER_SIZE / 2 && posX < position.getX() + MONSTER_SIZE / 2
 				&& posY > position.getY() - MONSTER_SIZE / 2 && posY < position.getY() + MONSTER_SIZE / 2;
-		if (isCollide) {
-			takeDamage(bullet.getDamage());
-			// System.out.println("HIT!");
-		}
 		return isCollide;
 	}
 
@@ -81,12 +91,21 @@ public class Enemy implements Renderable {
 		return position;
 	}
 	
+	public double getMass() {
+		return mass;
+	}
+	
 	public int getDamage() {
 		return damage;
 	}
 
 	public void update() {
 		isMoving++;
+		if (knockBackVelocity.norm() > 0) {
+			this.position.setXY(this.position.getX() + knockBackVelocity.getX(), this.position.getY() + knockBackVelocity.getY());
+			reduceKnockBackVelocity();
+			return;
+		}
 		Coord direction = new Coord(GameScene.getCharacter().getPosition().getX() - this.position.getX(),
 				GameScene.getCharacter().getPosition().getY() - this.position.getY()).normalize(speed);
 		this.position.setXY(this.position.getX() + direction.getX(), this.position.getY() + direction.getY());

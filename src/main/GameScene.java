@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import bullet.Bullet;
+import bullet.CannonBall;
 import bullet.FireBullet;
 import character.Enemy;
 import character.Character;
@@ -105,6 +106,7 @@ public class GameScene extends StackPane {
 		map = new Map(character);
 		items.add(new Flamethrower(500, 300));
 		items.add(new Matter(600, 300));
+		items.add(new Cannon(500, 200));
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
@@ -233,6 +235,8 @@ public class GameScene extends StackPane {
 			for (Enemy e : enemies) {
 				if (e.isCollideBullet(b)) {
 					try {
+						e.takeDamage(b.getDamage());
+						e.takeKnockBack(b.getVelocity(), b.getMass());
 						itr.remove();
 					} catch (IllegalStateException error) {
 

@@ -17,7 +17,7 @@ public class RandomBullet extends Bullet {
 	private int rotateDirection;
 
 	public RandomBullet(double speed, int damage) {
-		super("cat", speed, damage);
+		super("cat", speed, damage, 1);
 		this.rotateDirection = 1;
 	}
 
@@ -29,22 +29,27 @@ public class RandomBullet extends Bullet {
 		case 0:
 			this.bulletImage = CAT_IMG;
 			this.damage = 20;
+			this.mass = 0.2;
 			break;
 		case 1:
 			this.bulletImage = CANNON_IMG;
 			this.damage = 50;
+			this.mass = 1;
 			break;
 		case 2:
 			this.bulletImage = CUP_IMG;
 			this.damage = 15;
+			this.mass = 0.1;
 			break;
 		case 3:
 			this.bulletImage = MICROWAVE_IMG;
 			this.damage = 30;
+			this.mass = 0.8;
 			break;
 		default:
 			this.bulletImage = CAT_IMG;
 			this.damage = 20;
+			this.mass = 0.2;
 		}
 		this.rotateDirection = rand.nextInt(2) == 0 ? 1 : -1;
 		this.speed = bullet.speed;

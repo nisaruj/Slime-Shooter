@@ -26,6 +26,14 @@ public class Coord {
 		return Math.sqrt(x * x + y * y);
 	}
 	
+	public void plusVector(Coord rsh) {
+		this.setXY(this.getX() + rsh.getX() , this.getY() + rsh.getY());
+	}
+	
+	public Coord productScalar(double c) {
+		return new Coord(this.getX() * c , this.getY() * c);
+	}
+	
 	@Override
 	public String toString() {
 		return "Coord(" + x + "," + y + ")";

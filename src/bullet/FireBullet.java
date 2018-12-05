@@ -9,10 +9,11 @@ public class FireBullet extends Bullet {
 	
 	protected int lifeTime;
 	private static final double FIRE_RADIUS = 17;
+	private static final double MASS = 0; // No Knock back
 	protected static final Image FIRE_BULLET = new Image("file:res/bullets/flamethrower_bullet.png");
 	
 	public FireBullet(double speed, int damage, int lifeTime) {
-		super("flamethrower_bullet", speed, damage);
+		super("flamethrower_bullet", speed, damage, MASS);
 		this.lifeTime = lifeTime;
 	}
 	
@@ -22,6 +23,7 @@ public class FireBullet extends Bullet {
 		this.bulletImage = bullet.bulletImage;
 		this.speed = bullet.speed;
 		this.damage = bullet.damage;
+		this.mass = bullet.mass;
 	}
 	
 	public boolean isDisappear() {

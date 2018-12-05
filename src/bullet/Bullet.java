@@ -17,6 +17,7 @@ public class Bullet implements Renderable {
 	protected Coord position;
 	protected Coord absolutePosition;
 	protected Coord velocity;
+	protected double mass;
 	protected double speed;
 	protected double angle;
 	protected int damage;
@@ -28,12 +29,14 @@ public class Bullet implements Renderable {
 	public Bullet(Bullet bullet, Coord velocity) {
 		this(velocity);
 		this.bulletImage = bullet.bulletImage;
+		this.mass = bullet.mass;
 		this.speed = bullet.speed;
 		this.damage = bullet.damage;
 	}
 
-	public Bullet(String type, double speed, int damage) {
+	public Bullet(String type, double speed, int damage, double mass) {
 		this.bulletImage = new Image("file:res/bullets/" + type + ".png");
+		this.mass = mass;
 		this.speed = speed;
 		this.damage = damage;
 	}
@@ -83,6 +86,10 @@ public class Bullet implements Renderable {
 	
 	public int getDamage() {
 		return damage;
+	}
+	
+	public double getMass() {
+		return mass;
 	}
 	
 	public void setBulletImage(Image bulletImage) {

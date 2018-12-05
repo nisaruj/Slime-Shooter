@@ -11,7 +11,6 @@ public abstract class Weapon extends Item {
 	
 	protected String name;
 	protected Image[] weaponImage = new Image[5];
-	protected int damage;
 	protected Bullet bullet;
 	
 	public Weapon(String name) {
@@ -21,8 +20,7 @@ public abstract class Weapon extends Item {
 	public Weapon(String name, int x, int y) {
 		super(name, x, y);
 		this.name = name;
-		this.bullet = new Bullet("bulletc", 10, 10);
-		this.damage = 10;
+		this.bullet = new Bullet("bulletc", 10, 10, 0.1);
 		this.weaponImage[0] = new Image("file:res/weapons/" + name + "/" + name + "_down.png");
 		this.weaponImage[1] = new Image("file:res/weapons/" + name + "/" + name + "_diagdown.png");
 		this.weaponImage[2] = new Image("file:res/weapons/" + name + "/" + name + "_side.png");
