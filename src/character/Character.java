@@ -10,20 +10,21 @@ public class Character {
 
 	private String name;
 	private Image[] characterImage = new Image[5];
-	private static int CHARACTER_WIDTH = 50;
-	private static int CHARACTER_HEIGHT = 60;
+	private static final int CHARACTER_WIDTH = 50;
+	private static final int CHARACTER_HEIGHT = 60;
+	public static final int MAX_MOVE_SPEED = 10;
 	private int type;
 	private int facingDirection;
 	private int mirrorDirection;
-	private int health;
-	private int maxHealth;
+	private double health;
+	private double maxHealth;
 	private boolean isDead;
 	private Weapon weapon;
 	private int isMoving;
 	private int movingSpeed;
 	private double speed;
 	private Coord position;
-	public static final int MAX_MOVE_SPEED = 10;
+	private double healthRegen;
 
 	public Character(String name, int type) {
 		// TODO: Add other types
@@ -34,6 +35,7 @@ public class Character {
 		this.health = 100;
 		this.maxHealth = 100;
 		this.isDead = false;
+		this.healthRegen = 0.01;
 		setMovingSpeed(5);
 		this.facingDirection = 0;
 		this.mirrorDirection = 1;
@@ -52,8 +54,9 @@ public class Character {
 
 	public void update(Coord currentMousePosition) {
 		changeFacingDirection(currentMousePosition);
+		this.health = Math.min(maxHealth, this.health + this.healthRegen);
 		weapon.update();
-
+		
 	}
 
 	private void changeFacingDirection(Coord currentMousePosition) {
@@ -201,11 +204,11 @@ public class Character {
 		this.position.setXY(x, y);
 	}
 	
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
 	
-	public int getMaxHealth() {
+	public double getMaxHealth() {
 		return maxHealth;
 	}
 

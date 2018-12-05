@@ -30,7 +30,7 @@ public class Flamethrower extends Weapon {
 	@Override
 	public FireBullet[] shoot() {
 		if (isReady()) {
-			ammo -= SHOT_COUNT;
+			ammo = Math.max(0, ammo - SHOT_COUNT);
 			reloadingTime = 0;
 			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
 			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;
