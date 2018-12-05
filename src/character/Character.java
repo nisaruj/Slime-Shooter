@@ -142,6 +142,9 @@ public class Character {
 	}
 	
 	public void takeDamage(int damage) {
+		if (isDead) {
+			return;
+		}
 		this.health = Math.max(0, this.health - damage);
 		if (health == 0) {
 			isDead = true;
@@ -196,6 +199,14 @@ public class Character {
 
 	public void setPosition(double x, double y) {
 		this.position.setXY(x, y);
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public int getMaxHealth() {
+		return maxHealth;
 	}
 
 }

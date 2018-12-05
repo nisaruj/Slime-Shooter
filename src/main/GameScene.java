@@ -39,16 +39,18 @@ public class GameScene extends StackPane {
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
 	private boolean isPaused = false;
+	private HealthBarUI healthBar;
 
 	public GameScene() {
 		gameSetup();
+		healthBar = new HealthBarUI();
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
 		gc = canvas.getGraphicsContext2D();
 		currentMousePosition = new Coord();
 		keyboardStatus = new HashSet<KeyCode>();
 
-		canvas.setOnMouseMoved(new EventHandler<MouseEvent>() {
+		this.setOnMouseMoved(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -57,7 +59,7 @@ public class GameScene extends StackPane {
 
 		});
 
-		canvas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent e) {
@@ -66,7 +68,7 @@ public class GameScene extends StackPane {
 
 		});
 
-		canvas.setOnKeyReleased(new EventHandler<KeyEvent>() {
+		this.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent e) {
@@ -75,7 +77,7 @@ public class GameScene extends StackPane {
 
 		});
 
-		this.getChildren().addAll(canvas);
+		this.getChildren().addAll(canvas, healthBar);
 		this.setStyle("-fx-background-color: grey");
 	}
 
@@ -157,6 +159,9 @@ public class GameScene extends StackPane {
 
 		// Render Map
 		map.render(gc);
+		
+		// Render UI
+		healthBar.render();
 
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
