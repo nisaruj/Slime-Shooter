@@ -8,6 +8,7 @@ import java.util.Set;
 import bullet.Bullet;
 import bullet.CannonBall;
 import bullet.FireBullet;
+import bullet.ShotgunBullet;
 import character.Enemy;
 import character.Character;
 import item.*;
@@ -107,6 +108,7 @@ public class GameScene extends StackPane {
 		items.add(new Flamethrower(500, 300, 100));
 		items.add(new Matter(600, 300, 100));
 		items.add(new Cannon(500, 200, 100));
+		items.add(new Shotgun(600, 200, 10));
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
@@ -150,6 +152,10 @@ public class GameScene extends StackPane {
 			Object o = character.getWeapon().shoot();
 			if (o instanceof FireBullet[]) {
 				for (FireBullet b : (FireBullet[]) o) {
+					addBullet(b);
+				}
+			} else if (o instanceof ShotgunBullet[]) {
+				for (ShotgunBullet b : (ShotgunBullet[]) o) {
 					addBullet(b);
 				}
 			} else {
