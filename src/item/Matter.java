@@ -17,8 +17,8 @@ public class Matter extends SingleShotWeapon {
 		this.fireRate = 30;
 	}
 
-	public Matter(int x, int y) {
-		super("matter", x, y);
+	public Matter(int x, int y, int ammo) {
+		super("matter", x, y, ammo);
 		this.bullet = new RandomBullet(BULLET_SPEED, DAMAGE);
 		this.fireRate = 30;
 	}
@@ -26,6 +26,7 @@ public class Matter extends SingleShotWeapon {
 	@Override
 	public Bullet shoot() {
 		if (isReady()) {
+			ammo--;
 			reloadingTime = 0;
 			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
 			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;

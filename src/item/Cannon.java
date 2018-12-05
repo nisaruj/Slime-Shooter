@@ -17,8 +17,8 @@ public class Cannon extends SingleShotWeapon {
 		this.fireRate = 30;
 	}
 
-	public Cannon(int x, int y) {
-		super("cannon", x, y);
+	public Cannon(int x, int y, int ammo) {
+		super("cannon", x, y, ammo);
 		this.bullet = new CannonBall(BULLET_SPEED, DAMAGE);
 		this.fireRate = 30;
 	}
@@ -26,6 +26,7 @@ public class Cannon extends SingleShotWeapon {
 	@Override
 	public Bullet shoot() {
 		if (isReady()) {
+			ammo--;
 			reloadingTime = 0;
 			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
 			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;

@@ -104,9 +104,9 @@ public class GameScene extends StackPane {
 		effects = new ArrayList<Effect>();
 		character = new Character();
 		map = new Map(character);
-		items.add(new Flamethrower(500, 300));
-		items.add(new Matter(600, 300));
-		items.add(new Cannon(500, 200));
+		items.add(new Flamethrower(500, 300, 100));
+		items.add(new Matter(600, 300, 100));
+		items.add(new Cannon(500, 200, 100));
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));

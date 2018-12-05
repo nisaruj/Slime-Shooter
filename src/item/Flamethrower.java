@@ -22,14 +22,15 @@ public class Flamethrower extends Weapon {
 		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
 	}
 
-	public Flamethrower(int x, int y) {
-		super("flamethrower", x, y);
+	public Flamethrower(int x, int y, int ammo) {
+		super("flamethrower", x, y, ammo);
 		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
 	}
 
 	@Override
 	public FireBullet[] shoot() {
 		if (isReady()) {
+			ammo -= SHOT_COUNT;
 			reloadingTime = 0;
 			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
 			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;
@@ -77,7 +78,7 @@ public class Flamethrower extends Weapon {
 
 	@Override
 	public boolean isReady() {
-		return reloadingTime >= fireRate;
+		return ammo > 0 && reloadingTime >= fireRate;
 	}
 
 	@Override

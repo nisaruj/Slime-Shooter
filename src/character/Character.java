@@ -42,7 +42,7 @@ public class Character {
 		this.characterImage[2] = new Image("file:res/characters/" + type + "_side.png");
 		this.characterImage[3] = new Image("file:res/characters/" + type + "_diagup.png");
 		this.characterImage[4] = new Image("file:res/characters/" + type + "_north.png");
-		weapon = new SingleShotWeapon("mg");
+		weapon = new SingleShotWeapon("mg", 0, 0, 100);
 
 	}
 

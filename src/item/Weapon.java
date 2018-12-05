@@ -10,17 +10,20 @@ import main.MainApplication;
 public abstract class Weapon extends Item {
 	
 	protected String name;
+	protected int ammo;
+	protected int magazineSize;
 	protected Image[] weaponImage = new Image[5];
 	protected Bullet bullet;
 	
 	public Weapon(String name) {
-		this(name, 0, 0);
+		this(name, 0, 0, 100);
 	}
 	
-	public Weapon(String name, int x, int y) {
+	public Weapon(String name, int x, int y, int ammo) {
 		super(name, x, y);
 		this.name = name;
-		this.bullet = new Bullet("bulletc", 10, 10, 0.1);
+		this.magazineSize = ammo;
+		this.ammo = ammo;
 		this.weaponImage[0] = new Image("file:res/weapons/" + name + "/" + name + "_down.png");
 		this.weaponImage[1] = new Image("file:res/weapons/" + name + "/" + name + "_diagdown.png");
 		this.weaponImage[2] = new Image("file:res/weapons/" + name + "/" + name + "_side.png");
@@ -48,6 +51,14 @@ public abstract class Weapon extends Item {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getAmmo() {
+		return ammo;
+	}
+	
+	public int getMagazineSize() {
+		return magazineSize;
 	}
 	
 	public abstract Object shoot();
