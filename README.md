@@ -5,4 +5,5 @@
 TODO
 
 ## Authors
-TODO
+- Nisaruj Rattanaaram
+- Tanakorn Pisnupoomi
