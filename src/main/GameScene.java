@@ -112,8 +112,9 @@ public class GameScene extends StackPane {
 		items.add(new Cannon(500, 200, 100));
 		items.add(new Shotgun(600, 200, 10));
 		items.add(new RocketLauncher(400, 200, 100));
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+		items.add(new HealthBox(300, 200, 50));
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
 			}
 		}
@@ -207,6 +208,9 @@ public class GameScene extends StackPane {
 				itr.remove();
 				item.equip();
 			} else {
+				if (item instanceof Powerup) {
+					((Powerup) item).update();
+				}
 				try {
 					item.render(gc, startRenderX + (int) item.getPosition().getX(),
 							startRenderY + (int) item.getPosition().getY());

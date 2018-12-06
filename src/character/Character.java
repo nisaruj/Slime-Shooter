@@ -54,9 +54,13 @@ public class Character {
 
 	public void update(Coord currentMousePosition) {
 		changeFacingDirection(currentMousePosition);
-		this.health = Math.min(maxHealth, this.health + this.healthRegen);
+		regenHealth(this.healthRegen);
 		weapon.update();
 		
+	}
+	
+	public void regenHealth(double value) {
+		this.health = Math.min(maxHealth, this.health + value);
 	}
 
 	private void changeFacingDirection(Coord currentMousePosition) {

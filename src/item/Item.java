@@ -20,6 +20,8 @@ public abstract class Item implements Renderable {
 		this.position = new Coord(x, y);
 		if (this instanceof Weapon) {
 			itemImage = new Image("file:res/weapons/" + name + "/" + name + "_side.png");
+		} else if (this instanceof Powerup) {
+			itemImage = new Image("file:res/powerups/powerup_" + name + ".png");
 		}
 	}
 
