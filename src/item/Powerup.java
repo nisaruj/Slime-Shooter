@@ -21,6 +21,10 @@ public abstract class Powerup extends Item {
 		currentFrame = frameCount / RENDER_SPEED % 4;
 	}
 	
+	public boolean isExpired() {
+		return frameCount > 1200;
+	}
+	
 	@Override
 	public void render(GraphicsContext gc, int x, int y) throws Exception {
 		if (x < -IMAGE_SIZE || y < -IMAGE_SIZE || x > MainApplication.SCREEN_WIDTH || y > MainApplication.SCREEN_HEIGHT) {

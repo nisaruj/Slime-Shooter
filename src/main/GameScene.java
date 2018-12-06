@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 import bullet.Bullet;
@@ -46,6 +47,7 @@ public class GameScene extends StackPane {
 	private Set<KeyCode> keyboardStatus;
 	private boolean isPaused = false;
 	private HealthBarUI healthBar;
+	private Random rand = new Random();
 
 	public GameScene() {
 		gameSetup();
@@ -117,7 +119,8 @@ public class GameScene extends StackPane {
 		items.add(new RocketLauncher(400, 200, 3));
 		items.add(new HealthBox(300, 200, 50));
 		items.add(new DamageMultiply(200, 200, 1.5, 300));
-		spawners.add(new Spawner(new Enemy(0,0), 150, new Coord(0, 0), new Coord(1000, 1000)));
+		spawners.add(new Spawner("enemy", 150, new Coord(0, 0), new Coord(1000, 1000)));
+		spawners.add(new Spawner("powerup", 150, new Coord(0, 0), new Coord(1000, 1000)));
 //		for (int i = 0; i < 8; i++) {
 //			for (int j = 0; j < 8; j++) {
 //				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
@@ -216,7 +219,11 @@ public class GameScene extends StackPane {
 				item.equip();
 			} else {
 				if (item instanceof Powerup) {
-					((Powerup) item).update();
+					if (((Powerup) item).isExpired()) {
+						itr.remove();
+					} else {
+						((Powerup) item).update();
+					}
 				}
 				try {
 					item.render(gc, startRenderX + (int) item.getPosition().getX(),
@@ -235,7 +242,7 @@ public class GameScene extends StackPane {
 			Enemy enemy = (Enemy) itr.next();
 			if (enemy.isDead()) {
 				effects.add(new Explosion(enemy.getPosition()));
-				character.addCoin(6);
+				character.addCoin(rand.nextInt(10) + 1);
 				itr.remove();
 			} else if (enemy.isCollidePlayer()) {
 				character.takeDamage(enemy.getDamage());
