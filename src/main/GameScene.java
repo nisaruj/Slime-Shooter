@@ -11,6 +11,7 @@ import bullet.FireBullet;
 import bullet.Rocket;
 import bullet.ShotgunBullet;
 import character.Enemy;
+import character.Spawner;
 import character.Character;
 import item.*;
 import javafx.animation.AnimationTimer;
@@ -35,9 +36,10 @@ public class GameScene extends StackPane {
 	private Canvas canvas;
 	private GraphicsContext gc;
 	private ArrayList<Bullet> bullets;
-	private ArrayList<Item> items;
-	private ArrayList<Enemy> enemies;
+	private static ArrayList<Item> items;
+	private static ArrayList<Enemy> enemies;
 	private ArrayList<Effect> effects;
+	private ArrayList<Spawner> spawners;
 	private static Character character;
 	private static Coord currentMousePosition;
 	private Map map;
@@ -105,6 +107,7 @@ public class GameScene extends StackPane {
 		items = new ArrayList<Item>();
 		enemies = new ArrayList<Enemy>();
 		effects = new ArrayList<Effect>();
+		spawners = new ArrayList<Spawner>();
 		character = new Character();
 		map = new Map(character);
 		items.add(new Flamethrower(500, 300, 1000));
@@ -114,11 +117,12 @@ public class GameScene extends StackPane {
 		items.add(new RocketLauncher(400, 200, 3));
 		items.add(new HealthBox(300, 200, 50));
 		items.add(new DamageMultiply(200, 200, 1.5, 300));
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
-			}
-		}
+		spawners.add(new Spawner(new Enemy(0,0), 150, new Coord(0, 0), new Coord(1000, 1000)));
+//		for (int i = 0; i < 8; i++) {
+//			for (int j = 0; j < 8; j++) {
+//				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
+//			}
+//		}
 	}
 
 	public void addBullet(Bullet bullet) {
@@ -144,7 +148,7 @@ public class GameScene extends StackPane {
 			isPressed = true;
 		}
 		if (keyboardStatus.contains(KeyCode.SPACE)) {
-			// handlePlayerShoot();
+			handlePlayerShoot();
 		}
 		if (isPressed) {
 			character.move();
@@ -172,7 +176,7 @@ public class GameScene extends StackPane {
 
 	public void update() {
 		keyboardHandle();
-		handlePlayerShoot();
+		//handlePlayerShoot();
 
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
@@ -186,9 +190,11 @@ public class GameScene extends StackPane {
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
 
 		renderEffects(startRenderX, startRenderY);
-		renderItems(startRenderX, startRenderY);
-		renderEnemies(startRenderX, startRenderY);
-		renderBullets(startRenderX, startRenderY);
+		updateItems(startRenderX, startRenderY);
+		updateEnemies(startRenderX, startRenderY);
+		updateBullets(startRenderX, startRenderY);
+		
+		updateSpawner();
 
 		// Render player
 		character.update(currentMousePosition);
@@ -200,7 +206,7 @@ public class GameScene extends StackPane {
 
 	}
 
-	private void renderItems(int startRenderX, int startRenderY) {
+	private void updateItems(int startRenderX, int startRenderY) {
 		// Render Items
 		Iterator<Item> itr = items.iterator();
 		while (itr.hasNext()) {
@@ -222,7 +228,7 @@ public class GameScene extends StackPane {
 		}
 	}
 
-	private void renderEnemies(int startRenderX, int startRenderY) {
+	private void updateEnemies(int startRenderX, int startRenderY) {
 		// Render Enemies
 		Iterator<Enemy> itr = enemies.iterator();
 		while (itr.hasNext()) {
@@ -245,7 +251,7 @@ public class GameScene extends StackPane {
 		}
 	}
 
-	private void renderBullets(int startRenderX, int startRenderY) {
+	private void updateBullets(int startRenderX, int startRenderY) {
 		// Render Bullets
 		Iterator<Bullet> itr = bullets.iterator();
 		while (itr.hasNext()) {
@@ -317,6 +323,12 @@ public class GameScene extends StackPane {
 			}
 		}
 	}
+	
+	private void updateSpawner() {
+		for (Spawner s : spawners) {
+			s.update();
+		}
+	}
 
 	public static Coord getMousePosition() {
 		return currentMousePosition;
@@ -324,5 +336,13 @@ public class GameScene extends StackPane {
 
 	public static Character getCharacter() {
 		return character;
+	}
+	
+	public static ArrayList<Item> getItemList() {
+		return items;
+	}
+	
+	public static ArrayList<Enemy> getEnemyList() {
+		return enemies;
 	}
 }

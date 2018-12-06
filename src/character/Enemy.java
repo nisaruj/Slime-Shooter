@@ -43,7 +43,7 @@ public class Enemy implements Renderable {
 		this.isDead = false;
 		this.isMoving = 0;
 		this.movingSpeed = 3;
-		this.speed = 0.5;
+		this.speed = 1.1;
 		this.mass = 1;
 		this.knockBackVelocity = new Coord(0, 0);
 	}

@@ -1,4 +1,5 @@
 package character;
+
 import item.SingleShotWeapon;
 import item.Weapon;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,7 +34,7 @@ public class Character {
 		this.name = name;
 		this.type = type;
 		this.position = new Coord(300, 300);
-		this.speed = 1;
+		this.speed = 1.5;
 		this.health = 100;
 		this.maxHealth = 100;
 		this.isDead = false;
@@ -61,20 +62,20 @@ public class Character {
 		regenHealth(this.healthRegen);
 		updateDamageMultiplier();
 		weapon.update();
-		
+
 	}
-	
+
 	private void updateDamageMultiplier() {
 		damageMultiplierTime = Math.max(0, damageMultiplierTime - 1);
 		if (!inUseDamageMultiplier()) {
 			damageMultiplier = 1;
 		}
 	}
-	
+
 	public boolean inUseDamageMultiplier() {
 		return damageMultiplierTime > 0;
 	}
-	
+
 	public void regenHealth(double value) {
 		this.health = Math.min(maxHealth, this.health + value);
 	}
@@ -163,7 +164,7 @@ public class Character {
 		}
 
 	}
-	
+
 	public void takeDamage(double damage) {
 		if (isDead) {
 			return;
@@ -173,7 +174,7 @@ public class Character {
 			isDead = true;
 		}
 	}
-	
+
 	public boolean isDead() {
 		return isDead;
 	}
@@ -201,7 +202,7 @@ public class Character {
 	public void idle() {
 		isMoving = 0;
 	}
-	
+
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
@@ -209,11 +210,11 @@ public class Character {
 	public Weapon getWeapon() {
 		return weapon;
 	}
-	
+
 	public double getDamageMultiplier() {
 		return damageMultiplier;
 	}
-	
+
 	public void setDamageMultiplier(double multiplier, int time) {
 		this.damageMultiplier = Math.max(1, multiplier);
 		this.damageMultiplierTime = Math.max(0, time);
@@ -232,11 +233,11 @@ public class Character {
 	public void setPosition(double x, double y) {
 		this.position.setXY(x, y);
 	}
-	
+
 	public double getHealth() {
 		return health;
 	}
-	
+
 	public double getMaxHealth() {
 		return maxHealth;
 	}
