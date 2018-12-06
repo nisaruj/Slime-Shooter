@@ -34,6 +34,10 @@ public class Coord {
 		return new Coord(this.getX() * c , this.getY() * c);
 	}
 	
+	public static double distance(Coord a, Coord b) { 
+		return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+	}
+	
 	@Override
 	public String toString() {
 		return "Coord(" + x + "," + y + ")";

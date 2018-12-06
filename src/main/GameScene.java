@@ -8,6 +8,7 @@ import java.util.Set;
 import bullet.Bullet;
 import bullet.CannonBall;
 import bullet.FireBullet;
+import bullet.Rocket;
 import bullet.ShotgunBullet;
 import character.Enemy;
 import character.Character;
@@ -110,6 +111,7 @@ public class GameScene extends StackPane {
 		items.add(new Matter(600, 300, 100));
 		items.add(new Cannon(500, 200, 100));
 		items.add(new Shotgun(600, 200, 10));
+		items.add(new RocketLauncher(400, 200, 100));
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
@@ -140,7 +142,7 @@ public class GameScene extends StackPane {
 			isPressed = true;
 		}
 		if (keyboardStatus.contains(KeyCode.SPACE)) {
-			//handlePlayerShoot();
+			// handlePlayerShoot();
 		}
 		if (isPressed) {
 			character.move();
@@ -148,7 +150,7 @@ public class GameScene extends StackPane {
 			character.idle();
 		}
 	}
-	
+
 	public void handlePlayerShoot() {
 		if (character.getWeapon().isReady()) {
 			Object o = character.getWeapon().shoot();
@@ -169,12 +171,12 @@ public class GameScene extends StackPane {
 	public void update() {
 		keyboardHandle();
 		handlePlayerShoot();
-		
+
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
 		// Render Map
 		map.render(gc);
-		
+
 		// Render UI
 		healthBar.render();
 
@@ -248,11 +250,16 @@ public class GameScene extends StackPane {
 			for (Enemy e : enemies) {
 				if (e.isCollideBullet(b)) {
 					try {
-						e.takeDamage(b.getDamage());
-						e.takeKnockBack(b.getVelocity(), b.getMass());
+						if (b instanceof Rocket) {
+							((Rocket) b).explode(enemies);
+							effects.add(new Explosion(b.getAbsolutePosition()));
+						} else {
+							e.takeDamage(b.getDamage());
+							e.takeKnockBack(b.getVelocity(), b.getMass());
+						}
 						itr.remove();
 					} catch (IllegalStateException error) {
-
+						// Do nothing
 					}
 					isCollideEnemy = true;
 				}
@@ -260,10 +267,7 @@ public class GameScene extends StackPane {
 			if (isCollideEnemy)
 				continue;
 
-			if (b.getPosition().getX() < 0 || b.getPosition().getX() > MainApplication.SCREEN_WIDTH
-					|| b.getPosition().getY() < 0 || b.getPosition().getY() > MainApplication.SCREEN_HEIGHT) {
-				itr.remove();
-			} else if (b instanceof FireBullet && ((FireBullet) b).isDisappear()) {
+			if (b instanceof FireBullet && ((FireBullet) b).isDisappear()) {
 				effects.add(new Burning(b.getAbsolutePosition()));
 				itr.remove();
 			} else {
@@ -272,7 +276,8 @@ public class GameScene extends StackPane {
 					b.render(gc, startRenderX + (int) b.getAbsolutePosition().getX(),
 							startRenderY + (int) b.getAbsolutePosition().getY());
 				} catch (Exception e1) {
-					// Do nothing
+					// The bullet is rendered out of the screen, so delete it.
+					itr.remove();
 				}
 
 				/// DEBUG ///
