@@ -22,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import render.Burning;
 import render.Effect;
 import render.Explosion;
 import render.Map;
@@ -105,7 +106,7 @@ public class GameScene extends StackPane {
 		effects = new ArrayList<Effect>();
 		character = new Character();
 		map = new Map(character);
-		items.add(new Flamethrower(500, 300, 100));
+		items.add(new Flamethrower(500, 300, 1000));
 		items.add(new Matter(600, 300, 100));
 		items.add(new Cannon(500, 200, 100));
 		items.add(new Shotgun(600, 200, 10));
@@ -257,6 +258,7 @@ public class GameScene extends StackPane {
 					|| b.getPosition().getY() < 0 || b.getPosition().getY() > MainApplication.SCREEN_HEIGHT) {
 				itr.remove();
 			} else if (b instanceof FireBullet && ((FireBullet) b).isDisappear()) {
+				effects.add(new Burning(b.getAbsolutePosition()));
 				itr.remove();
 			} else {
 				b.update();
