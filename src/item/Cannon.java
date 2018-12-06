@@ -28,11 +28,7 @@ public class Cannon extends SingleShotWeapon {
 		if (isReady()) {
 			ammo--;
 			reloadingTime = 0;
-			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
-			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;
-			Coord velocity = new Coord(GameScene.getMousePosition().getX() - halfWidth,
-					GameScene.getMousePosition().getY() - halfHeight).normalize(bullet.getSpeed());
-			return new CannonBall((CannonBall) bullet, velocity);
+			return new CannonBall((CannonBall) bullet, Bullet.initailVelocity(bullet.getSpeed()));
 		}
 		return null;
 	}

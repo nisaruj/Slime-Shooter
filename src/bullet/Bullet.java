@@ -67,6 +67,13 @@ public class Bullet implements Renderable {
 		position.setXY(position.getX() + velocity.getX(), position.getY() + velocity.getY());
 		absolutePosition.setXY(absolutePosition.getX() + velocity.getX(), absolutePosition.getY() + velocity.getY());
 	}
+	
+	public static Coord initailVelocity(double speed) {
+		int halfWidth = MainApplication.SCREEN_WIDTH / 2;
+		int halfHeight = MainApplication.SCREEN_HEIGHT / 2;
+		return new Coord(GameScene.getMousePosition().getX() - halfWidth,
+				GameScene.getMousePosition().getY() - halfHeight).normalize(speed);
+	}
 
 	public Coord getPosition() {
 		return position;

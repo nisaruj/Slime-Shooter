@@ -9,7 +9,7 @@ import util.Coord;
 
 public class Shotgun extends Weapon {
 	
-	private static final double ACCURACY_ERROR = Math.PI / 6;
+	private static final double ACCURACY_ERROR = Math.PI / 12;
 	private static final int SHOT_COUNT = 10;
 	private static final int DAMAGE = 10;
 	private static final int BULLET_SPEED = 13;

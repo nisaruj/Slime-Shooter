@@ -32,11 +32,7 @@ public class SingleShotWeapon extends Weapon {
 		if (isReady()) {
 			ammo--;
 			reloadingTime = 0;
-			int halfWidth = MainApplication.SCREEN_WIDTH / 2;
-			int halfHeight = MainApplication.SCREEN_HEIGHT / 2;
-			Coord velocity = new Coord(GameScene.getMousePosition().getX() - halfWidth,
-					GameScene.getMousePosition().getY() - halfHeight).normalize(bullet.getSpeed());
-			return new Bullet(bullet, velocity);
+			return new Bullet(bullet, Bullet.initailVelocity(bullet.getSpeed()));
 		}
 		return null;
 	}
