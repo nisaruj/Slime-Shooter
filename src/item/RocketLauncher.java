@@ -5,7 +5,7 @@ import bullet.Rocket;
 
 public class RocketLauncher extends SingleShotWeapon {
 
-	private static final int DAMAGE = 50;
+	private static final int DAMAGE = 80;
 	private static final int BULLET_SPEED = 20;
 
 	public RocketLauncher() {

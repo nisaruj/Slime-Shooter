@@ -1,6 +1,7 @@
 package item;
 
 import javafx.scene.canvas.GraphicsContext;
+import main.GameScene;
 import main.MainApplication;
 
 public abstract class Powerup extends Item {
@@ -23,6 +24,14 @@ public abstract class Powerup extends Item {
 	
 	public boolean isExpired() {
 		return frameCount > 1200;
+	}
+	
+	@Override
+	public boolean isCollidePlayer() {
+		int posX = (int) GameScene.getCharacter().getPosition().getX();
+		int posY = (int) GameScene.getCharacter().getPosition().getY();
+		return posX > position.getX() - IMAGE_SIZE / 2 && posX < position.getX() + IMAGE_SIZE / 2 &&
+				posY > position.getY() - IMAGE_SIZE / 2 &&  posY < position.getY() + IMAGE_SIZE / 2;
 	}
 	
 	@Override

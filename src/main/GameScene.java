@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Set;
 
 import bullet.Bullet;
-import bullet.CannonBall;
 import bullet.FireBullet;
 import bullet.Rocket;
 import bullet.ShotgunBullet;
@@ -17,10 +16,8 @@ import character.Character;
 import item.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.scene.ImageCursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +30,6 @@ import util.Coord;
 
 public class GameScene extends StackPane {
 
-	private static final Image CROSSHAIR = new Image("file:res/other/crosshair.png");
 	private Canvas canvas;
 	private GraphicsContext gc;
 	private ArrayList<Bullet> bullets;
@@ -179,7 +175,7 @@ public class GameScene extends StackPane {
 
 	public void update() {
 		keyboardHandle();
-		//handlePlayerShoot();
+		// handlePlayerShoot();
 
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
@@ -196,7 +192,7 @@ public class GameScene extends StackPane {
 		updateItems(startRenderX, startRenderY);
 		updateEnemies(startRenderX, startRenderY);
 		updateBullets(startRenderX, startRenderY);
-		
+
 		updateSpawner();
 
 		// Render player
@@ -331,7 +327,7 @@ public class GameScene extends StackPane {
 			}
 		}
 	}
-	
+
 	private void updateSpawner() {
 		for (Spawner s : spawners) {
 			s.update();
@@ -345,11 +341,11 @@ public class GameScene extends StackPane {
 	public static Character getCharacter() {
 		return character;
 	}
-	
+
 	public static ArrayList<Item> getItemList() {
 		return items;
 	}
-	
+
 	public static ArrayList<Enemy> getEnemyList() {
 		return enemies;
 	}

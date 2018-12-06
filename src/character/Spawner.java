@@ -4,7 +4,6 @@ import java.util.Random;
 
 import item.DamageMultiply;
 import item.HealthBox;
-import item.Item;
 import item.Powerup;
 import main.GameScene;
 import util.Coord;
