@@ -235,6 +235,7 @@ public class GameScene extends StackPane {
 			Enemy enemy = (Enemy) itr.next();
 			if (enemy.isDead()) {
 				effects.add(new Explosion(enemy.getPosition()));
+				character.addCoin(6);
 				itr.remove();
 			} else if (enemy.isCollidePlayer()) {
 				character.takeDamage(enemy.getDamage());

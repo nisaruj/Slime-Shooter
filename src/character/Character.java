@@ -28,6 +28,8 @@ public class Character {
 	private double healthRegen;
 	private double damageMultiplier;
 	private int damageMultiplierTime;
+	private int coinCount;
+	private double animatedCoinCount;
 
 	public Character(String name, int type) {
 		// TODO: Add other types
@@ -44,6 +46,8 @@ public class Character {
 		setMovingSpeed(5);
 		this.facingDirection = 0;
 		this.mirrorDirection = 1;
+		this.coinCount = 0;
+		this.animatedCoinCount = 0;
 		this.characterImage[0] = new Image("file:res/characters/" + type + "_south.png");
 		this.characterImage[1] = new Image("file:res/characters/" + type + "_diagdown.png");
 		this.characterImage[2] = new Image("file:res/characters/" + type + "_side.png");
@@ -61,6 +65,7 @@ public class Character {
 		changeFacingDirection(currentMousePosition);
 		regenHealth(this.healthRegen);
 		updateDamageMultiplier();
+		updateCoinCountAnimation();
 		weapon.update();
 
 	}
@@ -174,6 +179,18 @@ public class Character {
 			isDead = true;
 		}
 	}
+	
+	public void updateCoinCountAnimation() {
+		final double epsilon = 0.001;
+		if (Math.abs(this.coinCount - this.animatedCoinCount) < epsilon) {
+			return;
+		}
+		if (this.coinCount > this.animatedCoinCount) {
+			this.animatedCoinCount += 0.2;
+		} else if (this.coinCount < this.animatedCoinCount) {
+			this.animatedCoinCount -= 0.2;
+		}
+	}
 
 	public boolean isDead() {
 		return isDead;
@@ -241,5 +258,16 @@ public class Character {
 	public double getMaxHealth() {
 		return maxHealth;
 	}
+	
+	public void addCoin(int amount) {
+		this.coinCount += amount;
+	}
 
+	public int getCoin() {
+		return this.coinCount;
+	}
+	
+	public double getAnimatedCoinCount() {
+		return Math.round(this.animatedCoinCount);
+	}
 }
