@@ -12,7 +12,7 @@ public class Rocket extends Bullet {
 	private static final double FIRE_RADIUS = 1;
 	private static final double MASS = 0.1;
 	private static final Image ROCKET = new Image("file:res/bullets/rocket.png");
-	private static final double BLAST_RANGE = 100;
+	private static final double BLAST_RADIUS = 100;
 	
 	public Rocket(double speed, int damage) {
 		super("rocket", speed, damage, MASS);
@@ -35,7 +35,7 @@ public class Rocket extends Bullet {
 	}
 	
 	private boolean isInRange(Enemy e) {
-		return Coord.distance(this.absolutePosition, e.getPosition()) < BLAST_RANGE;
+		return Coord.distance(this.absolutePosition, e.getPosition()) < BLAST_RADIUS;
 	}
 
 }

@@ -111,10 +111,10 @@ public class GameScene extends StackPane {
 		items.add(new Matter(600, 300, 100));
 		items.add(new Cannon(500, 200, 100));
 		items.add(new Shotgun(600, 200, 10));
-		items.add(new RocketLauncher(400, 200, 100));
+		items.add(new RocketLauncher(400, 200, 3));
 		items.add(new HealthBox(300, 200, 50));
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
 			}
 		}
