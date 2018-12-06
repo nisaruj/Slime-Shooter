@@ -139,16 +139,17 @@ public class GameScene extends StackPane {
 			character.moveRight();
 			isPressed = true;
 		}
+		if (keyboardStatus.contains(KeyCode.SPACE)) {
+			//handlePlayerShoot();
+		}
 		if (isPressed) {
 			character.move();
 		} else {
 			character.idle();
 		}
 	}
-
-	public void update() {
-		keyboardHandle();
-
+	
+	public void handlePlayerShoot() {
 		if (character.getWeapon().isReady()) {
 			Object o = character.getWeapon().shoot();
 			if (o instanceof FireBullet[]) {
@@ -163,7 +164,12 @@ public class GameScene extends StackPane {
 				addBullet((Bullet) o);
 			}
 		}
+	}
 
+	public void update() {
+		keyboardHandle();
+		handlePlayerShoot();
+		
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
 		// Render Map
