@@ -113,6 +113,7 @@ public class GameScene extends StackPane {
 		items.add(new Shotgun(600, 200, 10));
 		items.add(new RocketLauncher(400, 200, 3));
 		items.add(new HealthBox(300, 200, 50));
+		items.add(new DamageMultiply(200, 200, 1.5, 300));
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
@@ -285,14 +286,14 @@ public class GameScene extends StackPane {
 				}
 
 				/// DEBUG ///
-				int radius = 5;
-				int x = startRenderX + (int) b.getAbsolutePosition().getX() - radius;
-				int y = startRenderY + (int) b.getAbsolutePosition().getY() - radius;
-				if (x < -5 || y < -5 || x > MainApplication.SCREEN_WIDTH || y > MainApplication.SCREEN_HEIGHT) {
-
-				} else {
-					gc.fillOval(x, y, radius, radius);
-				}
+//				int radius = 5;
+//				int x = startRenderX + (int) b.getAbsolutePosition().getX() - radius;
+//				int y = startRenderY + (int) b.getAbsolutePosition().getY() - radius;
+//				if (x < -5 || y < -5 || x > MainApplication.SCREEN_WIDTH || y > MainApplication.SCREEN_HEIGHT) {
+//
+//				} else {
+//					gc.fillOval(x, y, radius, radius);
+//				}
 				/// END DEBUG ///
 			}
 		}

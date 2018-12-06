@@ -25,6 +25,8 @@ public class Character {
 	private double speed;
 	private Coord position;
 	private double healthRegen;
+	private double damageMultiplier;
+	private int damageMultiplierTime;
 
 	public Character(String name, int type) {
 		// TODO: Add other types
@@ -35,7 +37,9 @@ public class Character {
 		this.health = 100;
 		this.maxHealth = 100;
 		this.isDead = false;
-		this.healthRegen = 0.01;
+		this.healthRegen = 0.005;
+		this.damageMultiplier = 1;
+		this.damageMultiplierTime = 0;
 		setMovingSpeed(5);
 		this.facingDirection = 0;
 		this.mirrorDirection = 1;
@@ -55,8 +59,20 @@ public class Character {
 	public void update(Coord currentMousePosition) {
 		changeFacingDirection(currentMousePosition);
 		regenHealth(this.healthRegen);
+		updateDamageMultiplier();
 		weapon.update();
 		
+	}
+	
+	private void updateDamageMultiplier() {
+		damageMultiplierTime = Math.max(0, damageMultiplierTime - 1);
+		if (!inUseDamageMultiplier()) {
+			damageMultiplier = 1;
+		}
+	}
+	
+	public boolean inUseDamageMultiplier() {
+		return damageMultiplierTime > 0;
 	}
 	
 	public void regenHealth(double value) {
@@ -148,7 +164,7 @@ public class Character {
 
 	}
 	
-	public void takeDamage(int damage) {
+	public void takeDamage(double damage) {
 		if (isDead) {
 			return;
 		}
@@ -192,6 +208,15 @@ public class Character {
 
 	public Weapon getWeapon() {
 		return weapon;
+	}
+	
+	public double getDamageMultiplier() {
+		return damageMultiplier;
+	}
+	
+	public void setDamageMultiplier(double multiplier, int time) {
+		this.damageMultiplier = Math.max(1, multiplier);
+		this.damageMultiplierTime = Math.max(0, time);
 	}
 
 	public void setMovingSpeed(int speed) {

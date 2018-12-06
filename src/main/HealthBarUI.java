@@ -29,9 +29,14 @@ public class HealthBarUI extends StackPane {
 				healthPercent * (HEALTH_BAR.getWidth() - 8), 30);
 		
 		// Ammo Bar
-		gc.drawImage(HEALTH_BAR, 4, 30, ammoPercent * (HEALTH_BAR.getWidth() - 8), 30, 14, 40,
-				ammoPercent * (HEALTH_BAR.getWidth() - 8), 30);
-		
+		if (GameScene.getCharacter().inUseDamageMultiplier()) {
+			gc.drawImage(HEALTH_BAR, 4, 60, ammoPercent * (HEALTH_BAR.getWidth() - 8), 30, 14, 40,
+					ammoPercent * (HEALTH_BAR.getWidth() - 8), 30);
+		} else {
+			gc.drawImage(HEALTH_BAR, 4, 30, ammoPercent * (HEALTH_BAR.getWidth() - 8), 30, 14, 40,
+					ammoPercent * (HEALTH_BAR.getWidth() - 8), 30);
+		}
+
 		gc.drawImage(HEALTH_FRAME, 0, 0, HEALTH_FRAME.getWidth(), HEALTH_FRAME.getHeight(), 10, 10,
 				HEALTH_FRAME.getWidth(), HEALTH_FRAME.getHeight());
 	}

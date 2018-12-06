@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.Enemy;
 import javafx.scene.image.Image;
+import main.GameScene;
 import main.MainApplication;
 import util.Coord;
 
@@ -21,7 +22,7 @@ public class Rocket extends Bullet {
 	public Rocket(Rocket bullet, Coord velocity) {
 		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
 		this.bulletImage = ROCKET;
-		this.damage = bullet.damage;
+		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
 		this.speed = bullet.speed;
 		this.mass = bullet.mass;
 	}

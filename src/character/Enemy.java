@@ -19,9 +19,9 @@ public class Enemy implements Renderable {
 	private Image[] slimeImage;
 	private Image healthBar;
 	private double speed;
-	private int damage;
-	private int health;
-	private int maxHealth;
+	private double damage;
+	private double health;
+	private double maxHealth;
 	private boolean isDead;
 	private Coord knockBackVelocity;
 	private double mass;
@@ -48,7 +48,7 @@ public class Enemy implements Renderable {
 		this.knockBackVelocity = new Coord(0, 0);
 	}
 
-	public void takeDamage(int damage) {
+	public void takeDamage(double damage) {
 		if (isDead) {
 			return;
 		}
@@ -95,7 +95,7 @@ public class Enemy implements Renderable {
 		return mass;
 	}
 	
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 

@@ -2,9 +2,6 @@ package item;
 
 import bullet.Bullet;
 import bullet.RandomBullet;
-import main.GameScene;
-import main.MainApplication;
-import util.Coord;
 
 public class Matter extends SingleShotWeapon {
 

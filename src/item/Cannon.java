@@ -2,9 +2,6 @@ package item;
 
 import bullet.Bullet;
 import bullet.CannonBall;
-import main.GameScene;
-import main.MainApplication;
-import util.Coord;
 
 public class Cannon extends SingleShotWeapon {
 	

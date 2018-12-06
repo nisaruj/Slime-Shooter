@@ -3,6 +3,7 @@ package bullet;
 import java.util.Random;
 
 import javafx.scene.image.Image;
+import main.GameScene;
 import main.MainApplication;
 import util.Coord;
 
@@ -51,6 +52,7 @@ public class RandomBullet extends Bullet {
 			this.damage = 20;
 			this.mass = 0.2;
 		}
+		this.damage *= GameScene.getCharacter().getDamageMultiplier();
 		this.rotateDirection = rand.nextInt(2) == 0 ? 1 : -1;
 		this.speed = bullet.speed;
 	}

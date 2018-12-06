@@ -8,10 +8,10 @@ public abstract class Powerup extends Item {
 	protected int frameCount;
 	protected int currentFrame;
 	protected int IMAGE_SIZE = 40;
-	protected static final int RENDER_SPEED = 5;
+	protected static final int RENDER_SPEED = 7;
 	
 	public Powerup(String name, int x, int y) {
-		super("red", x, y);
+		super(name, x, y);
 		this.currentFrame = 0;
 		this.frameCount = 0;
 	}

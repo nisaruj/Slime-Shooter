@@ -2,6 +2,7 @@ package bullet;
 
 
 import javafx.scene.image.Image;
+import main.GameScene;
 import main.MainApplication;
 import util.Coord;
 
@@ -22,7 +23,7 @@ public class FireBullet extends Bullet {
 		this.lifeTime = bullet.lifeTime;
 		this.bulletImage = bullet.bulletImage;
 		this.speed = bullet.speed;
-		this.damage = bullet.damage;
+		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
 		this.mass = bullet.mass;
 	}
 	

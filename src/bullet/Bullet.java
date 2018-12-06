@@ -20,7 +20,7 @@ public class Bullet implements Renderable {
 	protected double mass;
 	protected double speed;
 	protected double angle;
-	protected int damage;
+	protected double damage;
 
 	public Bullet(Coord velocity) {
 		this(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
@@ -31,7 +31,7 @@ public class Bullet implements Renderable {
 		this.bulletImage = bullet.bulletImage;
 		this.mass = bullet.mass;
 		this.speed = bullet.speed;
-		this.damage = bullet.damage;
+		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
 	}
 
 	public Bullet(String type, double speed, int damage, double mass) {
@@ -91,7 +91,7 @@ public class Bullet implements Renderable {
 		return speed;
 	}
 	
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 	

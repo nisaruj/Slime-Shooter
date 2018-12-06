@@ -1,8 +1,5 @@
 package item;
 import bullet.Bullet;
-import main.GameScene;
-import main.MainApplication;
-import util.Coord;
 
 public class SingleShotWeapon extends Weapon {
 

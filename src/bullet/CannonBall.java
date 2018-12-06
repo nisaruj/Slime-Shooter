@@ -1,6 +1,7 @@
 package bullet;
 
 import javafx.scene.image.Image;
+import main.GameScene;
 import main.MainApplication;
 import util.Coord;
 
@@ -17,7 +18,7 @@ public class CannonBall extends Bullet {
 	public CannonBall(CannonBall bullet, Coord velocity) {
 		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
 		this.bulletImage = CANNON_IMG;
-		this.damage = bullet.damage;
+		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
 		this.speed = bullet.speed;
 		this.mass = bullet.mass;
 	}
