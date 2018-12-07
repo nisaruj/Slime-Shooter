@@ -92,11 +92,11 @@ public class Spawner {
 			return new Flamethrower(xPos, yPos, 200);
 		} else if (x < 13) {
 			return new Matter(xPos, yPos, 50);
-		} else if (x < 21) {
+		} else if (x < 18) {
 			return new Shotgun(xPos, yPos, 7);
-		} else if (x < 25) {
+		} else if (x < 24) {
 			return new Cannon(xPos, yPos, 20);
-		} else if (x < 27) {
+		} else if (x < 26) {
 			return new RocketLauncher(xPos, yPos, 3);
 		}
 		return null;

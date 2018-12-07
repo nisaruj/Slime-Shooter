@@ -6,20 +6,24 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-public class HealthBarUI extends StackPane {
+public class GameUI extends StackPane {
 
 	private static final Image HEALTH_FRAME = new Image("file:res/other/player_healthbar_frame.png");
 	private static final Image HEALTH_BAR = new Image("file:res/other/player_healthbar.png");
 	private static final Image COIN_UI = new Image("file:res/other/coin_ui.png");
+	private static final Image PAUSE = new Image("file:res/other/pausebtn.png");
 	private Canvas canvas;
 	private GraphicsContext gc;
 
-	public HealthBarUI() {
+	public GameUI() {
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		gc = canvas.getGraphicsContext2D();
 		Font font = Font.loadFont("file:res/m5x7.ttf", 45);
 		gc.setFont(font);
-		this.getChildren().add(canvas);
+		
+		UpgradeUI upgradeUI = new UpgradeUI();
+		upgradeUI.setVisible(false);
+		this.getChildren().addAll(canvas, upgradeUI);
 	}
 
 	public void render() {
@@ -50,6 +54,9 @@ public class HealthBarUI extends StackPane {
 				COIN_UI.getHeight() * 0.7);
 
 		gc.fillText(Integer.toString((int) GameScene.getCharacter().getAnimatedCoinCount()), 45, 105);
+		
+		// Pause Button
+		gc.drawImage(PAUSE, MainApplication.SCREEN_WIDTH - 60, 10);
 	}
 
 }

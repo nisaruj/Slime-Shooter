@@ -42,12 +42,12 @@ public class GameScene extends StackPane {
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
 	private boolean isPaused = false;
-	private HealthBarUI healthBar;
+	private GameUI healthBar;
 	private Random rand = new Random();
 
 	public GameScene() {
 		gameSetup();
-		healthBar = new HealthBarUI();
+		healthBar = new GameUI();
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
 		gc = canvas.getGraphicsContext2D();
