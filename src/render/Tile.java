@@ -6,7 +6,7 @@ import util.Coord;
 
 public class Tile implements Renderable {
 
-	public static final Image TILESET = new Image("file:res/tileset.png");
+	public static final Image TILESET = new Image(ClassLoader.getSystemResource("tileset.png").toString());
 	public static final int TILE_SIZE = 12;
 	public static final Coord GRASS_TILE_POS = new Coord(12, 0);
 	public static final Coord DIRT_TILE_POS = new Coord(0, 12);

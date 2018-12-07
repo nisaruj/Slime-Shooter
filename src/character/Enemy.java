@@ -35,7 +35,7 @@ public class Enemy implements Renderable {
 		slimeImage[0] = new Image(ClassLoader.getSystemResource("monsters/" + name + "_front.png").toString());
 		slimeImage[1] = new Image(ClassLoader.getSystemResource("monsters/" + name + "_side.png").toString());
 		slimeImage[2] = new Image(ClassLoader.getSystemResource("monsters/" + name + "_back.png").toString());
-		healthBar = new Image("file:res/other/healthbar.png");
+		healthBar = new Image(ClassLoader.getSystemResource("other/healthbar.png").toString());
 		this.position = new Coord(x, y);
 		this.maxHealth = 100;
 		this.damage = 20;

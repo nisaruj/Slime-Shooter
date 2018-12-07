@@ -7,7 +7,7 @@ import util.Coord;
 
 public class Explosion extends Effect {
 
-	private static final Image EXPLOSION = new Image("file:res/other/explosion.png");
+	private static final Image EXPLOSION = new Image(ClassLoader.getSystemResource("other/explosion.png").toString());
 	private static final int IMAGE_SIZE = 64;
 	private static final int RENDER_SPEED = 5;
 	private int frameCount;

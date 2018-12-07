@@ -7,7 +7,7 @@ import util.Coord;
 
 public class Burning extends Effect {
 	
-	private static final Image BURNING = new Image("file:res/other/burning.png");
+	private static final Image BURNING = new Image(ClassLoader.getSystemResource("other/burning.png").toString());
 	private static final int IMAGE_SIZE = 40;
 	private static final int RENDER_SPEED = 5;
 	private int frameCount = 0;
