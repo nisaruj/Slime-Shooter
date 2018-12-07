@@ -9,7 +9,7 @@ public class CannonBall extends Bullet {
 
 	private static final double FIRE_RADIUS = 10;
 	private static final double MASS = 1.5;
-	private static final Image CANNON_IMG = new Image("file:res/bullets/cannonball.png");
+	private static final Image CANNON_IMG = new Image(ClassLoader.getSystemResource("bullets/cannonball.png").toString());
 	
 	public CannonBall(double speed, int damage) {
 		super("cannonball", speed, damage, MASS);

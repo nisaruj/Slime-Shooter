@@ -11,7 +11,7 @@ public class FireBullet extends Bullet {
 	protected int lifeTime;
 	private static final double FIRE_RADIUS = 17;
 	private static final double MASS = 0; // No Knock back
-	protected static final Image FIRE_BULLET = new Image("file:res/bullets/flamethrower_bullet.png");
+	protected static final Image FIRE_BULLET = new Image(ClassLoader.getSystemResource("bullets/flamethrower_bullet.png").toString());
 	
 	public FireBullet(double speed, int damage, int lifeTime) {
 		super("flamethrower_bullet", speed, damage, MASS);

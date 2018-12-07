@@ -11,7 +11,7 @@ import util.Coord;
 
 public class Bullet implements Renderable {
 
-	protected Image bulletImage = new Image("file:res/bullets/bulletc.png");
+	protected Image bulletImage = new Image(ClassLoader.getSystemResource("bullets/bulletc.png").toString());
 	private static final double FIRE_RADIUS = 3;
 
 	protected Coord position;
@@ -35,7 +35,7 @@ public class Bullet implements Renderable {
 	}
 
 	public Bullet(String type, double speed, int damage, double mass) {
-		this.bulletImage = new Image("file:res/bullets/" + type + ".png");
+		this.bulletImage = new Image(ClassLoader.getSystemResource("bullets/" + type + ".png").toString());
 		this.mass = mass;
 		this.speed = speed;
 		this.damage = damage;

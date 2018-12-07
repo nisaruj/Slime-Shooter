@@ -8,7 +8,7 @@ import util.Coord;
 public class ShotgunBullet extends Bullet {
 	private static final double FIRE_RADIUS = 1;
 	private static final double MASS = 0.1;
-	private static final Image SHOTGUN_BULLET = new Image("file:res/bullets/bulleta.png");
+	private static final Image SHOTGUN_BULLET = new Image(ClassLoader.getSystemResource("bullets/bulleta.png").toString());
 	
 	public ShotgunBullet(double speed, int damage) {
 		super("bulleta", speed, damage, MASS);

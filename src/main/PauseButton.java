@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class PauseButton extends Pane {
 	
-	private static final Image PAUSE = new Image("file:res/other/pausebtn.png");
+	private static final Image PAUSE = new Image(ClassLoader.getSystemResource("other/pausebtn.png").toString());
 	private ImageView imageView;
 	
 	public PauseButton() {

@@ -32,9 +32,9 @@ public class Enemy implements Renderable {
 
 	public Enemy(String name, int x, int y) {
 		slimeImage = new Image[3];
-		slimeImage[0] = new Image("file:res/monsters/" + name + "_front.png");
-		slimeImage[1] = new Image("file:res/monsters/" + name + "_side.png");
-		slimeImage[2] = new Image("file:res/monsters/" + name + "_back.png");
+		slimeImage[0] = new Image(ClassLoader.getSystemResource("monsters/" + name + "_front.png").toString());
+		slimeImage[1] = new Image(ClassLoader.getSystemResource("monsters/" + name + "_side.png").toString());
+		slimeImage[2] = new Image(ClassLoader.getSystemResource("monsters/" + name + "_back.png").toString());
 		healthBar = new Image("file:res/other/healthbar.png");
 		this.position = new Coord(x, y);
 		this.maxHealth = 100;

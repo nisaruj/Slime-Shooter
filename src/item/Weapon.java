@@ -24,11 +24,11 @@ public abstract class Weapon extends Item {
 		this.name = name;
 		this.magazineSize = ammo;
 		this.ammo = ammo;
-		this.weaponImage[0] = new Image("file:res/weapons/" + name + "/" + name + "_down.png");
-		this.weaponImage[1] = new Image("file:res/weapons/" + name + "/" + name + "_diagdown.png");
-		this.weaponImage[2] = new Image("file:res/weapons/" + name + "/" + name + "_side.png");
-		this.weaponImage[3] = new Image("file:res/weapons/" + name + "/" + name + "_diagup.png");
-		this.weaponImage[4] = new Image("file:res/weapons/" + name + "/" + name + "_up.png");
+		this.weaponImage[0] = new Image(ClassLoader.getSystemResource("weapons/" + name + "/" + name + "_down.png").toString());
+		this.weaponImage[1] = new Image(ClassLoader.getSystemResource("weapons/" + name + "/" + name + "_diagdown.png").toString());
+		this.weaponImage[2] = new Image(ClassLoader.getSystemResource("weapons/" + name + "/" + name + "_side.png").toString());
+		this.weaponImage[3] = new Image(ClassLoader.getSystemResource("weapons/" + name + "/" + name + "_diagup.png").toString());
+		this.weaponImage[4] = new Image(ClassLoader.getSystemResource("weapons/" + name + "/" + name + "_up.png").toString());
 	}
 	
 	public void render(GraphicsContext gc, int facingDirection, int mirrorDirection, boolean renderFirst) {

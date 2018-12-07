@@ -19,9 +19,9 @@ public abstract class Item implements Renderable {
 	public Item(String name, int x, int y) {
 		this.position = new Coord(x, y);
 		if (this instanceof Weapon) {
-			itemImage = new Image("file:res/weapons/" + name + "/" + name + "_side.png");
+			itemImage = new Image(ClassLoader.getSystemResource("weapons/" + name + "/" + name + "_side.png").toString());
 		} else if (this instanceof Powerup) {
-			itemImage = new Image("file:res/powerups/powerup_" + name + ".png");
+			itemImage = new Image(ClassLoader.getSystemResource("powerups/powerup_" + name + ".png").toString());
 		}
 	}
 

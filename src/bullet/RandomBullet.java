@@ -11,10 +11,10 @@ public class RandomBullet extends Bullet {
 
 	private static final double FIRE_RADIUS = 10;
 	private static final double ROTATE_SPEED = 5;
-	private static final Image CAT_IMG = new Image("file:res/bullets/cat.png");
-	private static final Image CANNON_IMG = new Image("file:res/bullets/cannonball.png");
-	private static final Image CUP_IMG = new Image("file:res/bullets/cup.png");
-	private static final Image MICROWAVE_IMG = new Image("file:res/bullets/microwave.png");
+	private static final Image CAT_IMG = new Image(ClassLoader.getSystemResource("bullets/cat.png").toString());
+	private static final Image CANNON_IMG = new Image(ClassLoader.getSystemResource("bullets/cannonball.png").toString());
+	private static final Image CUP_IMG = new Image(ClassLoader.getSystemResource("bullets/cup.png").toString());
+	private static final Image MICROWAVE_IMG = new Image(ClassLoader.getSystemResource("bullets/microwave.png").toString());
 	private int rotateDirection;
 
 	public RandomBullet(double speed, int damage) {

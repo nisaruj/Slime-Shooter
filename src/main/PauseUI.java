@@ -19,7 +19,7 @@ public class PauseUI extends StackPane {
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		gc = canvas.getGraphicsContext2D();
 		
-		Font font = Font.loadFont("file:res/m5x7.ttf", 100);
+		Font font = Font.loadFont(ClassLoader.getSystemResource("m5x7.ttf").toString(), 100);
 		gc.setFont(font);
 		
 		gc.setFill(new Color(0, 0, 0, 0.4));

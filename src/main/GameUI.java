@@ -10,16 +10,16 @@ import javafx.scene.text.Font;
 
 public class GameUI extends StackPane {
 
-	private static final Image HEALTH_FRAME = new Image("file:res/other/player_healthbar_frame.png");
-	private static final Image HEALTH_BAR = new Image("file:res/other/player_healthbar.png");
-	private static final Image COIN_UI = new Image("file:res/other/coin_ui.png");
+	private static final Image HEALTH_FRAME = new Image(ClassLoader.getSystemResource("other/player_healthbar_frame.png").toString());
+	private static final Image HEALTH_BAR = new Image(ClassLoader.getSystemResource("other/player_healthbar.png").toString());
+	private static final Image COIN_UI = new Image(ClassLoader.getSystemResource("other/coin_ui.png").toString());
 	private Canvas canvas;
 	private GraphicsContext gc;
 
 	public GameUI() {
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		gc = canvas.getGraphicsContext2D();
-		Font font = Font.loadFont("file:res/m5x7.ttf", 45);
+		Font font = Font.loadFont(ClassLoader.getSystemResource("m5x7.ttf").toString(), 45);
 		gc.setFont(font);
 		
 		PauseUI upgradeUI = new PauseUI();

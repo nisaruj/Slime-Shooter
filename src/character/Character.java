@@ -53,11 +53,11 @@ public class Character {
 		this.mirrorDirection = 1;
 		this.coinCount = 0;
 		this.animatedCoinCount = 0;
-		this.characterImage[0] = new Image("file:res/characters/" + type + "_south.png");
-		this.characterImage[1] = new Image("file:res/characters/" + type + "_diagdown.png");
-		this.characterImage[2] = new Image("file:res/characters/" + type + "_side.png");
-		this.characterImage[3] = new Image("file:res/characters/" + type + "_diagup.png");
-		this.characterImage[4] = new Image("file:res/characters/" + type + "_north.png");
+		this.characterImage[0] = new Image(ClassLoader.getSystemResource("characters/" + type + "_south.png").toString());
+		this.characterImage[1] = new Image(ClassLoader.getSystemResource("characters/" + type + "_diagdown.png").toString());
+		this.characterImage[2] = new Image(ClassLoader.getSystemResource("characters/" + type + "_side.png").toString());
+		this.characterImage[3] = new Image(ClassLoader.getSystemResource("characters/" + type + "_diagup.png").toString());
+		this.characterImage[4] = new Image(ClassLoader.getSystemResource("characters/" + type + "_north.png").toString());
 		weapon = new SingleShotWeapon("mg", 0, 0, 100);
 
 	}

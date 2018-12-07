@@ -12,7 +12,7 @@ public class Rocket extends Bullet {
 	
 	private static final double FIRE_RADIUS = 1;
 	private static final double MASS = 0.1;
-	private static final Image ROCKET = new Image("file:res/bullets/rocket.png");
+	private static final Image ROCKET = new Image(ClassLoader.getSystemResource("bullets/rocket.png").toString());
 	private static final double BLAST_RADIUS = 100;
 	
 	public Rocket(double speed, int damage) {
