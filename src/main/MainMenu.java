@@ -1,22 +1,43 @@
 package main;
 
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 
 public class MainMenu extends StackPane {
-	
-	private GameScene gameScene;
-	
-	public MainMenu(GameScene gameScene) {
-		this.gameScene = gameScene;
+
+	private static final Image MAIN_MENU = new Image(ClassLoader.getSystemResource("main.png").toString());
+
+	public MainMenu() {
+		BackgroundImage myBI = new BackgroundImage(MAIN_MENU, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		this.setBackground(new Background(myBI));
+
+		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				playGame();
+			}
+
+		});
 		
-		/* TODO Main menu here :D */
-		
-		playGame(); // Calling this method will start the game.
+		// playGame(); // Calling this method will start the game.
 	}
-	
+
 	public void playGame() {
 		this.setVisible(false);
-		gameScene.startGameLoop();
+		GameScene.toggleGamePause();
 	}
-	
+
+	public void showMainMenu() {
+		this.setVisible(true);
+	}
+
 }

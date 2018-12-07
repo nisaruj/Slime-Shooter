@@ -30,7 +30,7 @@ import util.Coord;
 
 public class GameScene extends StackPane {
 
-	private Canvas canvas;
+	private static Canvas canvas;
 	private GraphicsContext gc;
 	private ArrayList<Bullet> bullets;
 	private static ArrayList<Item> items;
@@ -41,11 +41,13 @@ public class GameScene extends StackPane {
 	private static Coord currentMousePosition;
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
-	private static boolean isPaused = false;
+	private static boolean isPaused = true;
 	private GameUI healthBar;
 	private Random rand = new Random();
+	private MainMenu mainMenu;
 
-	public GameScene() {
+	public GameScene(MainMenu mainMenu) {
+		this.mainMenu = mainMenu;
 		gameSetup();
 		healthBar = new GameUI();
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
@@ -86,6 +88,7 @@ public class GameScene extends StackPane {
 
 		this.getChildren().addAll(canvas, healthBar);
 		this.setStyle("-fx-background-color: grey");
+		startGameLoop();
 	}
 
 	public void startGameLoop() {
@@ -120,6 +123,7 @@ public class GameScene extends StackPane {
 //		items.add(new DamageMultiply(200, 200, 1.5, 300));
 		spawners.add(new Spawner("enemy", 150, new Coord(0, 0), new Coord(1000, 1000)));
 		spawners.add(new Spawner("item", 150, new Coord(0, 0), new Coord(1000, 1000)));
+		isPaused = true;
 //		for (int i = 0; i < 8; i++) {
 //			for (int j = 0; j < 8; j++) {
 //				enemies.add(new Enemy(400 + 100 * i, 600 + 100 * j));
@@ -204,6 +208,7 @@ public class GameScene extends StackPane {
 
 		if (character.isDead()) {
 			gameSetup();
+			mainMenu.showMainMenu();
 		}
 
 	}
@@ -340,7 +345,7 @@ public class GameScene extends StackPane {
 	public static void toggleGamePause() {
 		isPaused = !isPaused;
 	}
-
+	
 	public static Coord getMousePosition() {
 		return currentMousePosition;
 	}

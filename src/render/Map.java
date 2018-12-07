@@ -1,5 +1,4 @@
 package render;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -19,7 +18,7 @@ public class Map {
 
 		tiles = new Tile[MAP_HEIGHT][MAP_WIDTH];
 		try {
-			Scanner input = new Scanner(new File(ClassLoader.getSystemResource("map1").getFile()));
+			Scanner input = new Scanner(ClassLoader.getSystemResourceAsStream("map1"));
 			for (int i = 0; i < MAP_HEIGHT; i++) {
 				for (int j = 0; j < MAP_WIDTH; j++) {
 					//tiles[i][j] = new Tile(0);
@@ -29,7 +28,7 @@ public class Map {
 				}
 			}
 			input.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println("Cannot open the map file.");
 			e.printStackTrace();
 			for (int i = 0; i < MAP_HEIGHT; i++) {
