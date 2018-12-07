@@ -68,6 +68,9 @@ public class GameScene extends StackPane {
 			@Override
 			public void handle(KeyEvent e) {
 				keyboardStatus.add(e.getCode());
+				if (e.getCode() == KeyCode.R) {
+					character.buyAmmo();
+				}
 			}
 
 		});

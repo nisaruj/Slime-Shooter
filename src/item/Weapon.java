@@ -57,6 +57,14 @@ public abstract class Weapon extends Item {
 		return ammo;
 	}
 	
+	public void refillAmmo(int amount) {
+		this.ammo = Math.min(this.magazineSize, this.ammo + amount);
+	}
+	
+	public boolean isFull() {
+		return this.ammo == this.magazineSize;
+	}
+	
 	public int getMagazineSize() {
 		return magazineSize;
 	}

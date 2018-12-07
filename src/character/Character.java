@@ -1,5 +1,10 @@
 package character;
 
+import item.Cannon;
+import item.Flamethrower;
+import item.Matter;
+import item.RocketLauncher;
+import item.Shotgun;
 import item.SingleShotWeapon;
 import item.Weapon;
 import javafx.scene.canvas.GraphicsContext;
@@ -262,9 +267,47 @@ public class Character {
 	public void addCoin(int amount) {
 		this.coinCount += amount;
 	}
+	
+	public boolean useCoin(int amount) {
+		if (this.coinCount < amount) {
+			return false;
+		}
+		this.coinCount -= amount;
+		return true;
+	}
 
 	public int getCoin() {
 		return this.coinCount;
+	}
+	
+	public boolean buyAmmo() {
+		int cost = 0, amount = 0;
+		if (this.weapon instanceof Flamethrower) {
+			cost = 12;
+			amount = 20;
+		} else if (this.weapon instanceof Matter) {
+			cost = 7;
+			amount = 10;
+		} else if (this.weapon instanceof Shotgun) {
+			cost = 12;
+			amount = 3;
+		} else if (this.weapon instanceof Cannon) {
+			cost = 10;
+			amount = 5;
+		} else if (this.weapon instanceof RocketLauncher) {
+			cost = 30;
+			amount = 1;
+		} else {
+			cost = 10;
+			amount = 20;
+		}
+		if (!weapon.isFull()) {
+			if (this.useCoin(cost)) {
+				this.weapon.refillAmmo(amount);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public double getAnimatedCoinCount() {
