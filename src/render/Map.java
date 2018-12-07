@@ -19,10 +19,10 @@ public class Map {
 
 		tiles = new Tile[MAP_HEIGHT][MAP_WIDTH];
 		try {
-			Scanner input = new Scanner(new File("res/map1"));
+			Scanner input = new Scanner(new File(ClassLoader.getSystemResource("map1").getFile()));
 			for (int i = 0; i < MAP_HEIGHT; i++) {
 				for (int j = 0; j < MAP_WIDTH; j++) {
-					tiles[i][j] = new Tile(0);
+					//tiles[i][j] = new Tile(0);
 					if (input.hasNextInt()) {
 						tiles[i][j] = new Tile(input.nextInt());
 					}
@@ -32,6 +32,11 @@ public class Map {
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot open the map file.");
 			e.printStackTrace();
+			for (int i = 0; i < MAP_HEIGHT; i++) {
+				for (int j = 0; j < MAP_WIDTH; j++) {
+					tiles[i][j] = new Tile(0);
+				}
+			}
 		}
 	}
 
