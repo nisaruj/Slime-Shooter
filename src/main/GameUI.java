@@ -1,8 +1,10 @@
 package main;
 
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
@@ -11,7 +13,6 @@ public class GameUI extends StackPane {
 	private static final Image HEALTH_FRAME = new Image("file:res/other/player_healthbar_frame.png");
 	private static final Image HEALTH_BAR = new Image("file:res/other/player_healthbar.png");
 	private static final Image COIN_UI = new Image("file:res/other/coin_ui.png");
-	private static final Image PAUSE = new Image("file:res/other/pausebtn.png");
 	private Canvas canvas;
 	private GraphicsContext gc;
 
@@ -21,9 +22,23 @@ public class GameUI extends StackPane {
 		Font font = Font.loadFont("file:res/m5x7.ttf", 45);
 		gc.setFont(font);
 		
-		UpgradeUI upgradeUI = new UpgradeUI();
+		PauseUI upgradeUI = new PauseUI();
 		upgradeUI.setVisible(false);
-		this.getChildren().addAll(canvas, upgradeUI);
+		
+		PauseButton pauseButton = new PauseButton();
+		pauseButton.setTranslateX(MainApplication.SCREEN_WIDTH - 60);
+		pauseButton.setTranslateY(10);
+		pauseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				GameScene.toggleGamePause();
+				upgradeUI.setVisible(true);
+			}
+
+		});
+
+		this.getChildren().addAll(canvas, pauseButton, upgradeUI);
 	}
 
 	public void render() {
@@ -54,9 +69,6 @@ public class GameUI extends StackPane {
 				COIN_UI.getHeight() * 0.7);
 
 		gc.fillText(Integer.toString((int) GameScene.getCharacter().getAnimatedCoinCount()), 45, 105);
-		
-		// Pause Button
-		gc.drawImage(PAUSE, MainApplication.SCREEN_WIDTH - 60, 10);
 	}
 
 }

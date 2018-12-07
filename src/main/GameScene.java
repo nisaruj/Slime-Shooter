@@ -41,7 +41,7 @@ public class GameScene extends StackPane {
 	private static Coord currentMousePosition;
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
-	private boolean isPaused = false;
+	private static boolean isPaused = false;
 	private GameUI healthBar;
 	private Random rand = new Random();
 
@@ -68,7 +68,7 @@ public class GameScene extends StackPane {
 			@Override
 			public void handle(KeyEvent e) {
 				keyboardStatus.add(e.getCode());
-				if (e.getCode() == KeyCode.R) {
+				if (e.getCode() == KeyCode.E) {
 					character.buyAmmo();
 				}
 			}
@@ -335,6 +335,10 @@ public class GameScene extends StackPane {
 		for (Spawner s : spawners) {
 			s.update();
 		}
+	}
+	
+	public static void toggleGamePause() {
+		isPaused = !isPaused;
 	}
 
 	public static Coord getMousePosition() {
