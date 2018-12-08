@@ -26,8 +26,8 @@ public class GameUI extends StackPane {
 		upgradeUI.setVisible(false);
 		
 		PauseButton pauseButton = new PauseButton();
-		pauseButton.setTranslateX(MainApplication.SCREEN_WIDTH - 60);
-		pauseButton.setTranslateY(10);
+		pauseButton.setTranslateX(MainApplication.SCREEN_WIDTH / 2 - 30);
+		pauseButton.setTranslateY(30 - MainApplication.SCREEN_HEIGHT / 2);
 		pauseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override

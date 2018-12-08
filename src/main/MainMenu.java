@@ -18,8 +18,10 @@ public class MainMenu extends StackPane {
 		BackgroundImage myBI = new BackgroundImage(MAIN_MENU, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		this.setBackground(new Background(myBI));
+		PlayButton playButton = new PlayButton();
+		playButton.setTranslateY(100);
 
-		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -28,7 +30,7 @@ public class MainMenu extends StackPane {
 
 		});
 		
-		// playGame(); // Calling this method will start the game.
+		this.getChildren().add(playButton);
 	}
 
 	public void playGame() {
