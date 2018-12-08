@@ -2,7 +2,6 @@ package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -24,9 +23,10 @@ public class MainApplication extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Project");
 		MainMenu mainMenu = new MainMenu();
-		gameScene = new GameScene(mainMenu);
+		GameOver gameOver = new GameOver(mainMenu);
+		gameScene = new GameScene(gameOver);
 		
-		root.getChildren().addAll(gameScene, mainMenu);
+		root.getChildren().addAll(gameScene, mainMenu, gameOver);
 
 		primaryStage.setResizable(false);
 		primaryStage.show();
