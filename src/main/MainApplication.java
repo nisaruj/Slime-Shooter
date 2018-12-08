@@ -22,7 +22,7 @@ public class MainApplication extends Application {
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Project");
+		primaryStage.setTitle("Slime Shooter");
 		MainMenu mainMenu = new MainMenu();
 		gameScene = new GameScene(mainMenu);
 		
