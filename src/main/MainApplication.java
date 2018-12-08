@@ -4,7 +4,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainApplication extends Application {
 
@@ -30,7 +33,21 @@ public class MainApplication extends Application {
 	}
 
 	public static void main(String[] args) {
+		playBGM();
 		launch(args);
+	}
+	
+	private static void playBGM() {
+		Thread playBGM = new Thread(() ->  {
+			MediaPlayer bgm = new MediaPlayer(new Media(ClassLoader.getSystemResource("bgm.mp3").toString()));
+			bgm.setOnReady(() -> {
+				bgm.setOnEndOfMedia(() -> {
+					bgm.seek(Duration.ZERO);
+				});
+				bgm.play();
+			});
+		});
+		playBGM.start();
 	}
 
 }
