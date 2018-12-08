@@ -8,13 +8,14 @@ public class Tile implements Renderable {
 
 	public static final Image TILESET = new Image(ClassLoader.getSystemResource("tileset.png").toString());
 	public static final int TILE_SIZE = 12;
-	public static final Coord GRASS_TILE_POS = new Coord(12, 0);
+	public static final Coord GRASS_TILE_POS1 = new Coord(0, 0);
+	public static final Coord GRASS_TILE_POS2 = new Coord(12, 0);
 	public static final Coord DIRT_TILE_POS = new Coord(0, 12);
 
 	private int type;
 
 	public Tile(int type) {
-		// type 0: grass, type 1: dirt
+		// type 0: grass, type 1: another grass, type 2: dirt
 		this.type = type;
 	}
 	
@@ -24,7 +25,10 @@ public class Tile implements Renderable {
 			throw new Exception("Render out of screen");
 		}
 		if (type == 0) {
-			gc.drawImage(TILESET, GRASS_TILE_POS.getX(), GRASS_TILE_POS.getY(), TILE_SIZE, TILE_SIZE, x, y, TILE_SIZE,
+			gc.drawImage(TILESET, GRASS_TILE_POS1.getX(), GRASS_TILE_POS1.getY(), TILE_SIZE, TILE_SIZE, x, y, TILE_SIZE,
+					TILE_SIZE);
+		} else if (type == 1) {
+			gc.drawImage(TILESET, GRASS_TILE_POS2.getX(), GRASS_TILE_POS2.getY(), TILE_SIZE, TILE_SIZE, x, y, TILE_SIZE,
 					TILE_SIZE);
 		} else {
 			gc.drawImage(TILESET, DIRT_TILE_POS.getX(), DIRT_TILE_POS.getY(), TILE_SIZE, TILE_SIZE, x, y, TILE_SIZE,
