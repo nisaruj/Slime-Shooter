@@ -15,6 +15,7 @@ public class MainApplication extends Application {
 	public static final int SCREEN_HEIGHT = 700;
 	public static final double SIZE_MULTIPLIER = 1;
 	private static GameScene gameScene;
+	private static MediaPlayer bgm;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -39,7 +40,7 @@ public class MainApplication extends Application {
 	
 	private static void playBGM() {
 		Thread playBGM = new Thread(() ->  {
-			MediaPlayer bgm = new MediaPlayer(new Media(ClassLoader.getSystemResource("bgm.mp3").toString()));
+			bgm = new MediaPlayer(new Media(ClassLoader.getSystemResource("bgm.mp3").toString()));
 			bgm.setOnReady(() -> {
 				bgm.setOnEndOfMedia(() -> {
 					bgm.seek(Duration.ZERO);
