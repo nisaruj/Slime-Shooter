@@ -44,10 +44,10 @@ public class GameScene extends StackPane {
 	private static boolean isPaused = true;
 	private GameUI healthBar;
 	private Random rand = new Random();
-	private MainMenu mainMenu;
+	private GameOver gameOver;
 
-	public GameScene(MainMenu mainMenu) {
-		this.mainMenu = mainMenu;
+	public GameScene(GameOver gameOver) {
+		this.gameOver = gameOver;
 		gameSetup();
 		healthBar = new GameUI();
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
@@ -208,7 +208,7 @@ public class GameScene extends StackPane {
 
 		if (character.isDead()) {
 			gameSetup();
-			mainMenu.showMainMenu();
+			gameOver.showGameOver();
 		}
 
 	}

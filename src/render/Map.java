@@ -1,5 +1,4 @@
 package render;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import character.Character;
@@ -18,7 +17,7 @@ public class Map {
 
 		tiles = new Tile[MAP_HEIGHT][MAP_WIDTH];
 		try {
-			Scanner input = new Scanner(ClassLoader.getSystemResourceAsStream("map1"));
+			Scanner input = new Scanner(ClassLoader.getSystemResourceAsStream("map"));
 			for (int i = 0; i < MAP_HEIGHT; i++) {
 				for (int j = 0; j < MAP_WIDTH; j++) {
 					//tiles[i][j] = new Tile(0);
