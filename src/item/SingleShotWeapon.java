@@ -12,11 +12,15 @@ public class SingleShotWeapon extends Weapon {
 	public SingleShotWeapon(String name) {
 		super(name);
 		this.bullet = new Bullet("bulletc", BULLET_SPEED, DAMAGE, MASS);
+		this.reloadSize = 20;
+		this.reloadCost = 10;
 	}
 	
 	public SingleShotWeapon(String name, int x, int y, int ammo) {
 		super(name, x, y, ammo);
 		this.bullet = new Bullet("bulletc", BULLET_SPEED, DAMAGE, MASS);
+		this.reloadSize = 20;
+		this.reloadCost = 10;
 	}
 
 	@Override

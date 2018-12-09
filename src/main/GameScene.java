@@ -15,6 +15,8 @@ import character.Spawner;
 import character.Character;
 import item.*;
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,20 +44,26 @@ public class GameScene extends StackPane {
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
 	private static boolean isPaused = true;
-	private GameUI healthBar;
+	private static GameStateUI healthBar;
 	private Random rand = new Random();
 	private GameOver gameOver;
 
 	public GameScene(GameOver gameOver) {
 		this.gameOver = gameOver;
 		gameSetup();
-		healthBar = new GameUI();
+		healthBar = new GameStateUI();
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		canvas.setFocusTraversable(true);
 		gc = canvas.getGraphicsContext2D();
 		currentMousePosition = new Coord();
 		keyboardStatus = new HashSet<KeyCode>();
-
+		canvas.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
+					Boolean newPropertyValue) {
+				setPause(!newPropertyValue);
+			}
+		});
 		this.setOnMouseMoved(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -104,6 +112,11 @@ public class GameScene extends StackPane {
 			}
 
 		}.start();
+	}
+
+	public static void setPause(boolean isPause) {
+		isPaused = isPause;
+		healthBar.showPause(isPause);
 	}
 
 	public void gameSetup() {
@@ -194,7 +207,6 @@ public class GameScene extends StackPane {
 
 		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
 		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
-
 		renderEffects(startRenderX, startRenderY);
 		updateItems(startRenderX, startRenderY);
 		updateEnemies(startRenderX, startRenderY);
@@ -341,11 +353,7 @@ public class GameScene extends StackPane {
 			s.update();
 		}
 	}
-	
-	public static void toggleGamePause() {
-		isPaused = !isPaused;
-	}
-	
+
 	public static Coord getMousePosition() {
 		return currentMousePosition;
 	}

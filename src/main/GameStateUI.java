@@ -8,23 +8,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-public class GameUI extends StackPane {
+public class GameStateUI extends StackPane {
 
-	private static final Image HEALTH_FRAME = new Image(ClassLoader.getSystemResource("other/player_healthbar_frame.png").toString());
-	private static final Image HEALTH_BAR = new Image(ClassLoader.getSystemResource("other/player_healthbar.png").toString());
+	private static final Image HEALTH_FRAME = new Image(
+			ClassLoader.getSystemResource("other/player_healthbar_frame.png").toString());
+	private static final Image HEALTH_BAR = new Image(
+			ClassLoader.getSystemResource("other/player_healthbar.png").toString());
 	private static final Image COIN_UI = new Image(ClassLoader.getSystemResource("other/coin_ui.png").toString());
+	private PauseUI upgradeUI = new PauseUI();
 	private Canvas canvas;
 	private GraphicsContext gc;
 
-	public GameUI() {
+	public GameStateUI() {
 		canvas = new Canvas(MainApplication.SCREEN_WIDTH, MainApplication.SCREEN_HEIGHT);
 		gc = canvas.getGraphicsContext2D();
 		Font font = Font.loadFont(ClassLoader.getSystemResource("m5x7.ttf").toString(), 45);
 		gc.setFont(font);
-		
-		PauseUI upgradeUI = new PauseUI();
+
 		upgradeUI.setVisible(false);
-		
+
 		PauseButton pauseButton = new PauseButton();
 		pauseButton.setTranslateX(MainApplication.SCREEN_WIDTH / 2 - 30);
 		pauseButton.setTranslateY(30 - MainApplication.SCREEN_HEIGHT / 2);
@@ -32,8 +34,7 @@ public class GameUI extends StackPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				GameScene.toggleGamePause();
-				upgradeUI.setVisible(true);
+				GameScene.setPause(true);
 			}
 
 		});
@@ -68,7 +69,20 @@ public class GameUI extends StackPane {
 		gc.drawImage(COIN_UI, 0, 0, COIN_UI.getWidth(), COIN_UI.getHeight(), 10, 80, COIN_UI.getWidth() * 0.7,
 				COIN_UI.getHeight() * 0.7);
 
-		gc.fillText(Integer.toString((int) GameScene.getCharacter().getAnimatedCoinCount()), 45, 105);
+		gc.fillText(Integer.toString((int) GameScene.getCharacter().getAnimatedCoinCount()) + "  "
+				+ Integer.toString((int) GameScene.getCharacter().getWeapon().getAmmo()) + "/"
+				+ Integer.toString((int) GameScene.getCharacter().getWeapon().getMagazineSize()), 45, 105);
+		gc.fillText("Press 'E' to reload", MainApplication.SCREEN_WIDTH - 280, 100);
+		gc.setFont(Font.loadFont(ClassLoader.getSystemResource("m5x7.ttf").toString(), 25));
+		gc.fillText(
+				"(" + Integer.toString((int) GameScene.getCharacter().getWeapon().getReloadSize()) + " Ammo" + "/"
+						+ Integer.toString((int) GameScene.getCharacter().getWeapon().getReloadCost()) + " Coins)",
+				MainApplication.SCREEN_WIDTH - 160, 130);
+		gc.setFont(Font.loadFont(ClassLoader.getSystemResource("m5x7.ttf").toString(), 45));
+	}
+
+	public void showPause(boolean isShow) {
+		upgradeUI.setVisible(isShow);
 	}
 
 }

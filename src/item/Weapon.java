@@ -12,6 +12,8 @@ public abstract class Weapon extends Item {
 	protected String name;
 	protected int ammo;
 	protected int magazineSize;
+	protected int reloadSize;
+	protected int reloadCost;
 	protected Image[] weaponImage = new Image[5];
 	protected Bullet bullet;
 	
@@ -57,8 +59,8 @@ public abstract class Weapon extends Item {
 		return ammo;
 	}
 	
-	public void refillAmmo(int amount) {
-		this.ammo = Math.min(this.magazineSize, this.ammo + amount);
+	public void refillAmmo() {
+		this.ammo = Math.min(this.magazineSize, this.ammo + this.reloadSize);
 	}
 	
 	public boolean isFull() {
@@ -67,6 +69,14 @@ public abstract class Weapon extends Item {
 	
 	public int getMagazineSize() {
 		return magazineSize;
+	}
+	
+	public int getReloadCost() {
+		return reloadCost;
+	}
+	
+	public int getReloadSize() {
+		return reloadSize;
 	}
 	
 	public abstract Object shoot();

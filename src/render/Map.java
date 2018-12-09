@@ -52,4 +52,10 @@ public class Map {
 			}
 		}
 	}
+	public static int getMapWidth() {
+		return MAP_WIDTH;
+	}
+	public static int getMapHeight() {
+		return MAP_HEIGHT;
+	}
 }

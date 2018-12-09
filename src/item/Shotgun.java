@@ -19,11 +19,15 @@ public class Shotgun extends Weapon {
 	public Shotgun() {
 		super("shotgun");
 		this.bullet = new ShotgunBullet(BULLET_SPEED, DAMAGE);
+		this.reloadSize = 3;
+		this.reloadCost = 12;
 	}
 
 	public Shotgun(int x, int y, int ammo) {
 		super("shotgun", x, y, ammo);
 		this.bullet = new ShotgunBullet(BULLET_SPEED, DAMAGE);
+		this.reloadSize = 3;
+		this.reloadCost = 12;
 	}
 
 	@Override

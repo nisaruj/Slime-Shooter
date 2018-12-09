@@ -12,12 +12,16 @@ public class RocketLauncher extends SingleShotWeapon {
 		super("rocket");
 		this.bullet = new Rocket(BULLET_SPEED, DAMAGE);
 		this.fireRate = 50;
+		this.reloadSize = 1;
+		this.reloadCost = 30;
 	}
 
 	public RocketLauncher(int x, int y, int ammo) {
 		super("rocket",x, y, ammo);
 		this.bullet = new Rocket(BULLET_SPEED, DAMAGE);
 		this.fireRate = 50;
+		this.reloadSize = 1;
+		this.reloadCost = 30;
 	}
 	
 	@Override

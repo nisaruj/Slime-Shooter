@@ -1,5 +1,7 @@
 package main;
 
+import org.scenicview.ScenicView;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -30,7 +32,7 @@ public class MainApplication extends Application {
 
 		primaryStage.setResizable(false);
 		primaryStage.show();
-
+//		ScenicView.show(scene);
 	}
 
 	public static void main(String[] args) {

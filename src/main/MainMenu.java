@@ -35,7 +35,7 @@ public class MainMenu extends StackPane {
 
 	public void playGame() {
 		this.setVisible(false);
-		GameScene.toggleGamePause();
+		GameScene.setPause(false);
 	}
 
 	public void showMainMenu() {

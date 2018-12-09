@@ -8,7 +8,6 @@ import main.MainApplication;
 import util.Coord;
 
 public class Flamethrower extends Weapon {
-
 	private static final int DEFAULT_LIFETIME = 50;
 	private static final double ACCURACY_ERROR = Math.PI / 6;
 	private static final int SHOT_COUNT = 3;
@@ -16,15 +15,20 @@ public class Flamethrower extends Weapon {
 	private static final int BULLET_SPEED = 3;
 	protected int fireRate = 10;
 	protected int reloadingTime;
+	
 
 	public Flamethrower() {
 		super("flamethrower");
 		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
+		this.reloadSize = 20;
+		this.reloadCost = 12;
 	}
 
 	public Flamethrower(int x, int y, int ammo) {
 		super("flamethrower", x, y, ammo);
 		this.bullet = new FireBullet(BULLET_SPEED, DAMAGE, DEFAULT_LIFETIME);
+		this.reloadSize = 20;
+		this.reloadCost = 12;
 	}
 
 	@Override

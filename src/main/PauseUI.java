@@ -32,8 +32,7 @@ public class PauseUI extends StackPane {
 		gc.fillText("PAUSED", MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2);
 		
 		this.setOnMouseClicked(e -> {
-			GameScene.toggleGamePause();
-			this.setVisible(false);
+			GameScene.setPause(false);
 		});
 		
 		this.getChildren().add(canvas);

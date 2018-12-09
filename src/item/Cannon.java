@@ -12,12 +12,16 @@ public class Cannon extends SingleShotWeapon {
 		super("cannon");
 		this.bullet = new CannonBall(BULLET_SPEED, DAMAGE);
 		this.fireRate = 30;
+		this.reloadSize = 5;
+		this.reloadCost = 10;
 	}
 
 	public Cannon(int x, int y, int ammo) {
 		super("cannon", x, y, ammo);
 		this.bullet = new CannonBall(BULLET_SPEED, DAMAGE);
 		this.fireRate = 30;
+		this.reloadSize = 5;
+		this.reloadCost = 10;
 	}
 	
 	@Override

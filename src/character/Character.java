@@ -10,8 +10,10 @@ import item.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.MainApplication;
+import render.Map;
+import render.Tile;
 import util.Coord;
-
+import render.*;
 public class Character {
 
 	private String name;
@@ -40,8 +42,8 @@ public class Character {
 		// TODO: Add other types
 		this.name = name;
 		this.type = type;
-		this.position = new Coord(300, 300);
-		this.speed = 1.5;
+		this.position = new Coord(600, 350);
+		this.speed = 3;
 		this.health = 100;
 		this.maxHealth = 100;
 		this.isDead = false;
@@ -184,7 +186,7 @@ public class Character {
 			isDead = true;
 		}
 	}
-	
+
 	public void updateCoinCountAnimation() {
 		final double epsilon = 0.001;
 		if (Math.abs(this.coinCount - this.animatedCoinCount) < epsilon) {
@@ -206,19 +208,28 @@ public class Character {
 	}
 
 	public void moveLeft() {
-		this.position.setX(this.position.getX() - speed);
+		double nextX = this.position.getX() - speed;
+		if (nextX > 0)
+			this.position.setX(nextX);
+
 	}
 
 	public void moveRight() {
-		this.position.setX(this.position.getX() + speed);
+		double nextX = this.position.getX() + speed;
+		if (nextX < Tile.TILE_SIZE * render.Map.getMapWidth())
+			this.position.setX(nextX);
 	}
 
 	public void moveUp() {
-		this.position.setY(this.position.getY() - speed);
+		double nextY = this.position.getY() - speed;
+		if (nextY > 0)
+			this.position.setY(nextY);
 	}
 
 	public void moveDown() {
-		this.position.setY(this.position.getY() + speed);
+		double nextY = this.position.getY() + speed;
+		if (nextY < Tile.TILE_SIZE * render.Map.getMapHeight())
+			this.position.setY(nextY);
 	}
 
 	public void idle() {
@@ -263,7 +274,7 @@ public class Character {
 	public double getMaxHealth() {
 		return maxHealth;
 	}
-	
+
 	public void addCoin(int amount) {
 		this.coinCount += amount;
 	}
@@ -281,35 +292,14 @@ public class Character {
 	}
 	
 	public boolean buyAmmo() {
-		int cost = 0, amount = 0;
-		if (this.weapon instanceof Flamethrower) {
-			cost = 12;
-			amount = 20;
-		} else if (this.weapon instanceof Matter) {
-			cost = 7;
-			amount = 10;
-		} else if (this.weapon instanceof Shotgun) {
-			cost = 12;
-			amount = 3;
-		} else if (this.weapon instanceof Cannon) {
-			cost = 10;
-			amount = 5;
-		} else if (this.weapon instanceof RocketLauncher) {
-			cost = 30;
-			amount = 1;
-		} else {
-			cost = 10;
-			amount = 20;
-		}
 		if (!weapon.isFull()) {
-			if (this.useCoin(cost)) {
-				this.weapon.refillAmmo(amount);
+			if (this.useCoin(this.weapon.getReloadCost())) {
+				this.weapon.refillAmmo();
 				return true;
 			}
 		}
 		return false;
 	}
-	
 	public double getAnimatedCoinCount() {
 		return Math.round(this.animatedCoinCount);
 	}
