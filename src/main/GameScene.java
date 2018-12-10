@@ -23,6 +23,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import render.Burning;
 import render.Effect;
@@ -69,6 +70,15 @@ public class GameScene extends StackPane {
 			@Override
 			public void handle(MouseEvent event) {
 				currentMousePosition.setXY(event.getX(), event.getY());
+			}
+
+		});
+		
+		this.setOnScroll(new EventHandler<ScrollEvent>() {
+
+			@Override
+			public void handle(ScrollEvent event) {
+				character.toggleWeapon();
 			}
 
 		});

@@ -12,7 +12,6 @@ import util.Coord;
 public class Bullet implements Renderable {
 
 	protected Image bulletImage = new Image(ClassLoader.getSystemResource("bullets/bulletc.png").toString());
-	private static final double FIRE_RADIUS = 3;
 
 	protected Coord position;
 	protected Coord absolutePosition;
@@ -23,7 +22,7 @@ public class Bullet implements Renderable {
 	protected double damage;
 
 	public Bullet(Coord velocity) {
-		this(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
+		this(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, 3);
 	}
 
 	public Bullet(Bullet bullet, Coord velocity) {

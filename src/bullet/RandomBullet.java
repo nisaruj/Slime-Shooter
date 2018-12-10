@@ -8,8 +8,6 @@ import util.Coord;
 
 public class RandomBullet extends SingleShotBullet {
 
-	public static final double FIRE_RADIUS = 10;
-	private static final double ROTATE_SPEED = 5;
 	private static final Image CAT_IMG = new Image(ClassLoader.getSystemResource("bullets/cat.png").toString());
 	private static final Image CANNON_IMG = new Image(ClassLoader.getSystemResource("bullets/cannonball.png").toString());
 	private static final Image CUP_IMG = new Image(ClassLoader.getSystemResource("bullets/cup.png").toString());
@@ -22,7 +20,7 @@ public class RandomBullet extends SingleShotBullet {
 	}
 
 	public RandomBullet(RandomBullet bullet, Coord velocity) {
-		super(bullet, velocity, FIRE_RADIUS);
+		super(bullet, velocity, 10);
 		Random rand = new Random();
 		int type = rand.nextInt(4);
 		switch (type) {
@@ -58,7 +56,12 @@ public class RandomBullet extends SingleShotBullet {
 	@Override
 	public void update() {
 		updatePosition();
-		angle += ROTATE_SPEED * rotateDirection;
+		angle += 5 * rotateDirection;
+	}
+
+	@Override
+	public SingleShotBullet duplicate(SingleShotBullet bullet) {
+		return new RandomBullet((RandomBullet) bullet, Bullet.initailVelocity(bullet.getSpeed()));
 	}
 
 }

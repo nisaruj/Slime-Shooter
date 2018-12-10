@@ -5,7 +5,7 @@ import main.GameScene;
 import main.MainApplication;
 import util.Coord;
 
-public class SingleShotBullet extends Bullet {
+public abstract class SingleShotBullet extends Bullet {
 
 	private static final Image DEFAULT_BULLET = new Image(ClassLoader.getSystemResource("bullets/bulletc.png").toString());
 	
@@ -20,5 +20,7 @@ public class SingleShotBullet extends Bullet {
 		this.speed = bullet.speed;
 		this.mass = bullet.mass;
 	}
+	
+	public abstract SingleShotBullet duplicate(SingleShotBullet bullet);
 
 }

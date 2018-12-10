@@ -1,22 +1,19 @@
 package character;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
-import item.Cannon;
-import item.Flamethrower;
-import item.MachineGun;
-import item.Matter;
-import item.RocketLauncher;
-import item.Shotgun;
-import item.SingleShotWeapon;
-import item.Weapon;
+import item.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.MainApplication;
-import render.Map;
 import render.Tile;
 import util.Coord;
-import render.*;
+
 public class Character {
 
 	private String name;
@@ -30,9 +27,8 @@ public class Character {
 	private double health;
 	private double maxHealth;
 	private boolean isDead;
-	private ArrayList<Weapon> weapon = new ArrayList<Weapon>();
-	private ArrayList<String> weaponType = new ArrayList<String>();
-	private int currentWeaponIndex;
+	private Map<String, Weapon> weapon = new HashMap<String, Weapon>();
+	private String currentWeaponName;
 	private int isMoving;
 	private int movingSpeed;
 	private double speed;
@@ -60,14 +56,18 @@ public class Character {
 		this.mirrorDirection = 1;
 		this.coinCount = 0;
 		this.animatedCoinCount = 0;
-		this.characterImage[0] = new Image(ClassLoader.getSystemResource("characters/" + type + "_south.png").toString());
-		this.characterImage[1] = new Image(ClassLoader.getSystemResource("characters/" + type + "_diagdown.png").toString());
-		this.characterImage[2] = new Image(ClassLoader.getSystemResource("characters/" + type + "_side.png").toString());
-		this.characterImage[3] = new Image(ClassLoader.getSystemResource("characters/" + type + "_diagup.png").toString());
-		this.characterImage[4] = new Image(ClassLoader.getSystemResource("characters/" + type + "_north.png").toString());
-		weapon.add(new MachineGun(0, 0, 100));
-		currentWeaponIndex = 0;
-		weaponType.add("mg");
+		this.characterImage[0] = new Image(
+				ClassLoader.getSystemResource("characters/" + type + "_south.png").toString());
+		this.characterImage[1] = new Image(
+				ClassLoader.getSystemResource("characters/" + type + "_diagdown.png").toString());
+		this.characterImage[2] = new Image(
+				ClassLoader.getSystemResource("characters/" + type + "_side.png").toString());
+		this.characterImage[3] = new Image(
+				ClassLoader.getSystemResource("characters/" + type + "_diagup.png").toString());
+		this.characterImage[4] = new Image(
+				ClassLoader.getSystemResource("characters/" + type + "_north.png").toString());
+		weapon.put("mg", new MachineGun(0, 0, 100));
+		currentWeaponName = "mg";
 
 	}
 
@@ -244,11 +244,29 @@ public class Character {
 	}
 
 	public void setWeapon(Weapon weapon) {
-		this.weapon.add(weapon);
+		String newWeaponName = weapon.getName();
+		if(getWeapon(newWeaponName) != null) {
+			getWeapon(newWeaponName).setFull();
+		}else {
+			this.weapon.put(weapon.getName(), weapon);			
+		}
 	}
 
 	public Weapon getWeapon() {
-		return weapon.get(currentWeaponIndex);
+		return weapon.get(currentWeaponName);
+	}
+	
+	public Weapon getWeapon(String name) {
+		return weapon.get(name);
+	}
+
+	public void toggleWeapon() {
+		Object[] nameList = getWeaponNameList().toArray();
+		currentWeaponName = (String) nameList[(Arrays.asList(nameList).indexOf(currentWeaponName) + 1) % nameList.length];
+	}
+
+	public Set<String> getWeaponNameList() {
+		return weapon.keySet();
 	}
 
 	public double getDamageMultiplier() {
@@ -285,7 +303,7 @@ public class Character {
 	public void addCoin(int amount) {
 		this.coinCount += amount;
 	}
-	
+
 	public boolean useCoin(int amount) {
 		if (this.coinCount < amount) {
 			return false;
@@ -297,7 +315,7 @@ public class Character {
 	public int getCoin() {
 		return this.coinCount;
 	}
-	
+
 	public boolean buyAmmo() {
 		Weapon currentWeapon = getWeapon();
 		if (!currentWeapon.isFull()) {
@@ -308,6 +326,7 @@ public class Character {
 		}
 		return false;
 	}
+
 	public double getAnimatedCoinCount() {
 		return Math.round(this.animatedCoinCount);
 	}

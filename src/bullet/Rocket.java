@@ -8,17 +8,14 @@ import util.Coord;
 
 public class Rocket extends SingleShotBullet {
 	
-	public static final double FIRE_RADIUS = 1;
-	private static final double MASS = 0.1;
 	private static final Image ROCKET = new Image(ClassLoader.getSystemResource("bullets/rocket.png").toString());
-	private static final double BLAST_RADIUS = 100;
 	
 	public Rocket(double speed, int damage) {
-		super("rocket", speed, damage, MASS);
+		super("rocket", speed, damage, 0.1);
 	}
 	
 	public Rocket(Rocket bullet, Coord velocity) {
-		super(bullet, velocity, FIRE_RADIUS);
+		super(bullet, velocity, 1);
 		this.bulletImage = ROCKET;
 	}
 	
@@ -31,7 +28,12 @@ public class Rocket extends SingleShotBullet {
 	}
 	
 	private boolean isInRange(Enemy e) {
-		return Coord.distance(this.absolutePosition, e.getPosition()) < BLAST_RADIUS;
+		return Coord.distance(this.absolutePosition, e.getPosition()) < 100;
+	}
+
+	@Override
+	public SingleShotBullet duplicate(SingleShotBullet bullet) {
+		return new Rocket((Rocket) bullet, Bullet.initailVelocity(bullet.getSpeed()));
 	}
 
 }
