@@ -49,7 +49,7 @@ public class RandomBullet extends SingleShotBullet {
 			this.damage = 20;
 			this.mass = 0.2;
 		}
-		this.damage *= GameScene.getCharacter().getDamageMultiplier();
+		this.damage *= GameScene.getHumanPlayer().getDamageMultiplier();
 		this.rotateDirection = rand.nextInt(2) == 0 ? 1 : -1;
 	}
 

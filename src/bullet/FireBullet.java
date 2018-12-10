@@ -21,7 +21,7 @@ public class FireBullet extends Bullet {
 		this.lifeTime = bullet.lifeTime;
 		this.bulletImage = bullet.bulletImage;
 		this.speed = bullet.speed;
-		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
+		this.damage = bullet.damage * GameScene.getHumanPlayer().getDamageMultiplier();
 		this.mass = bullet.mass;
 	}
 	

@@ -19,7 +19,7 @@ public class DamageMultiply extends Powerup {
 
 	@Override
 	public void equip() {
-		GameScene.getCharacter().setDamageMultiplier(multiplier, time);
+		GameScene.getHumanPlayer().setDamageMultiplier(multiplier, time);
 		
 	}
 

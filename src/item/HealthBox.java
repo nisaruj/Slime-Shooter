@@ -17,7 +17,7 @@ public class HealthBox extends Powerup {
 
 	@Override
 	public void equip() {
-		GameScene.getCharacter().regenHealth(this.regenValue);
+		GameScene.getHumanPlayer().regenHealth(this.regenValue);
 
 	}
 

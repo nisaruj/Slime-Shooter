@@ -13,6 +13,7 @@ import bullet.ShotgunBullet;
 import character.Enemy;
 import character.Spawner;
 import character.HumanPlayer;
+import character.Player;
 import item.*;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
@@ -38,15 +39,15 @@ public class GameScene extends StackPane {
 	private ArrayList<Bullet> bullets;
 	private static ArrayList<Item> items;
 	private static ArrayList<Enemy> enemies;
-	private ArrayList<Effect> effects;
+	private static ArrayList<Effect> effects;
 	private ArrayList<Spawner> spawners;
 	private static HumanPlayer humanPlayer;
+	private static Player Objective;
 	private static Coord currentMousePosition;
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
 	private static boolean isPaused = true;
 	private static GameStateUI healthBar;
-	private Random rand = new Random();
 	private GameOver gameOver;
 
 	public GameScene(GameOver gameOver) {
@@ -73,7 +74,7 @@ public class GameScene extends StackPane {
 			}
 
 		});
-		
+
 		this.setOnScroll(new EventHandler<ScrollEvent>() {
 
 			@Override
@@ -136,6 +137,7 @@ public class GameScene extends StackPane {
 		effects = new ArrayList<Effect>();
 		spawners = new ArrayList<Spawner>();
 		humanPlayer = new HumanPlayer();
+		Objective = new Player();
 		map = new Map(humanPlayer);
 		items.add(new Flamethrower(500, 300, 1000));
 		items.add(new Matter(600, 300, 100));
@@ -224,9 +226,13 @@ public class GameScene extends StackPane {
 
 		updateSpawner();
 
+		// Render objective
+//		Objective.render(gc, startRenderX, startRenderY);
+
 		// Render player
 		humanPlayer.update(currentMousePosition);
 		humanPlayer.render(gc);
+		
 
 		if (humanPlayer.isDead()) {
 			gameSetup();
@@ -261,27 +267,22 @@ public class GameScene extends StackPane {
 		}
 	}
 
+	public static void explode(Enemy enemy) {
+		enemies.remove(enemy);
+		effects.add(new Explosion(enemy.getPosition()));
+	}
+
 	private void updateEnemies(int startRenderX, int startRenderY) {
 		// Render Enemies
 		Iterator<Enemy> itr = enemies.iterator();
 		while (itr.hasNext()) {
-			Enemy enemy = (Enemy) itr.next();
-			if (enemy.isDead()) {
-				effects.add(new Explosion(enemy.getPosition()));
-				humanPlayer.addCoin(rand.nextInt(10) + 1);
-				itr.remove();
-			} else if (enemy.isCollidePlayer()) {
-				humanPlayer.takeDamage(enemy.getDamage());
-				itr.remove();
-			} else {
-				enemy.update();
-				try {
-					enemy.render(gc, startRenderX + (int) enemy.getPosition().getX(),
-							startRenderY + (int) enemy.getPosition().getY());
-				} catch (Exception e) {
-					// Do nothing
-				}
+			Enemy enemy;
+			try {
+				enemy = (Enemy) itr.next();
+			}catch (Exception e) {
+				break;
 			}
+			enemy.update(gc, startRenderX, startRenderY);				
 		}
 	}
 
@@ -368,8 +369,12 @@ public class GameScene extends StackPane {
 		return currentMousePosition;
 	}
 
-	public static HumanPlayer getCharacter() {
+	public static HumanPlayer getHumanPlayer() {
 		return humanPlayer;
+	}
+	
+	public static Player getObjectivePlayer() {
+		return Objective;
 	}
 
 	public static ArrayList<Item> getItemList() {

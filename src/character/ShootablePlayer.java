@@ -16,7 +16,7 @@ public class ShootablePlayer extends Player {
 
 	public ShootablePlayer(int type) {
 		// TODO: Add other types
-		super(type);
+		super();
 		this.health = 100;
 		this.maxHealth = 100;
 		this.characterImage[0] = new Image(

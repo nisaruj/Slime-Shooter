@@ -11,8 +11,8 @@ import util.Coord;
 
 public class Player {
 	public static final int MAX_MOVE_SPEED = 10;
-	protected static final int CHARACTER_WIDTH = 50;
-	protected static final int CHARACTER_HEIGHT = 60;
+	protected static int CHARACTER_WIDTH = 50;
+	protected static int CHARACTER_HEIGHT = 60;
 
 	protected Image[] characterImage = new Image[5];
 	protected int facingDirection;
@@ -30,6 +30,24 @@ public class Player {
 	public void update(Coord currentMousePosition) {
 		changeFacingDirection(currentMousePosition);
 		regenHealth(this.healthRegen);
+	}
+
+	public void render(GraphicsContext gc, int startRenderX, int startRenderY) {
+		final int DEFAULT_SIZE = 43;
+		final double x = startRenderX + position.getX(), y = startRenderY + position.getY();
+		int moveFrame = isMoving / (MAX_MOVE_SPEED - movingSpeed) % 4;
+		Image healthBar = new Image(ClassLoader.getSystemResource("other/healthbar.png").toString());
+		double healthPercent = (double) health / maxHealth;
+
+		if (x < -DEFAULT_SIZE || y < -DEFAULT_SIZE || x > MainApplication.SCREEN_WIDTH
+				|| y > MainApplication.SCREEN_HEIGHT) {
+			return;
+		}
+
+		gc.drawImage(healthBar, healthPercent * (healthBar.getWidth() - 1), 0, 1, 5, x - healthBar.getWidth() / 2,
+				y - healthBar.getHeight() / 2 - DEFAULT_SIZE / 2 - 10, healthPercent * healthBar.getWidth(), 5);
+		gc.drawImage(characterImage[facingDirection], moveFrame * CHARACTER_WIDTH, 0, DEFAULT_SIZE, DEFAULT_SIZE,
+				x - DEFAULT_SIZE / 2, y - DEFAULT_SIZE / 2, DEFAULT_SIZE, DEFAULT_SIZE);
 	}
 
 	public void render(GraphicsContext gc) {
@@ -185,7 +203,7 @@ public class Player {
 		return true;
 	}
 
-	public Player(int type) {
+	public Player() {
 		// TODO: Add other types
 		this.position = new Coord(Map.getMapWidth() * Tile.TILE_SIZE / 2, Map.getMapHeight() * Tile.TILE_SIZE / 2);
 		this.speed = 0;

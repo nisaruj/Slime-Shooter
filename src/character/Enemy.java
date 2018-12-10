@@ -1,10 +1,13 @@
 package character;
 
+import java.util.Random;
+
 import bullet.Bullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.GameScene;
 import main.MainApplication;
+import render.Explosion;
 import render.Renderable;
 import util.Coord;
 
@@ -57,12 +60,12 @@ public class Enemy implements Renderable {
 			isDead = true;
 		}
 	}
-	
+
 	public void takeKnockBack(Coord bulletVelocity, double bulletMass) {
 		Coord momentum = bulletVelocity.productScalar(bulletMass / this.mass);
 		knockBackVelocity.plusVector(momentum);
 	}
-	
+
 	public void reduceKnockBackVelocity() {
 		double newSpeed = Math.max(0, knockBackVelocity.norm() - 1);
 		knockBackVelocity = knockBackVelocity.normalize(newSpeed);
@@ -76,9 +79,9 @@ public class Enemy implements Renderable {
 		return isCollide;
 	}
 
-	public boolean isCollidePlayer() {
-		int posX = (int) GameScene.getCharacter().getPosition().getX();
-		int posY = (int) GameScene.getCharacter().getPosition().getY();
+	private boolean isCollidePlayer() {
+		int posX = (int) GameScene.getHumanPlayer().getPosition().getX();
+		int posY = (int) GameScene.getHumanPlayer().getPosition().getY();
 		return posX > position.getX() - MONSTER_SIZE / 2 && posX < position.getX() + MONSTER_SIZE / 2
 				&& posY > position.getY() - MONSTER_SIZE / 2 && posY < position.getY() + MONSTER_SIZE / 2;
 	}
@@ -90,25 +93,42 @@ public class Enemy implements Renderable {
 	public Coord getPosition() {
 		return position;
 	}
-	
+
 	public double getMass() {
 		return mass;
 	}
-	
+
 	public double getDamage() {
 		return damage;
 	}
 
-	public void update() {
-		isMoving++;
-		if (knockBackVelocity.norm() > 0) {
-			this.position.setXY(this.position.getX() + knockBackVelocity.getX(), this.position.getY() + knockBackVelocity.getY());
-			reduceKnockBackVelocity();
+	public void update(GraphicsContext gc, int startRenderX, int startRenderY) {
+		Random rand = new Random();
+		if (isCollidePlayer()) {
+			GameScene.explode(this);
+			GameScene.getHumanPlayer().takeDamage(getDamage());
 			return;
+		}else if (isDead()) {
+			GameScene.explode(this);
+			GameScene.getHumanPlayer().addCoin(rand.nextInt(10) + 1);
+			return;
+		} else {
+			isMoving++;
+			if (knockBackVelocity.norm() > 0) {
+				this.position.setXY(this.position.getX() + knockBackVelocity.getX(),
+						this.position.getY() + knockBackVelocity.getY());
+				reduceKnockBackVelocity();
+				return;
+			}
+			Coord direction = new Coord(GameScene.getHumanPlayer().getPosition().getX() - this.position.getX(),
+					GameScene.getHumanPlayer().getPosition().getY() - this.position.getY()).normalize(speed);
+			this.position.setXY(this.position.getX() + direction.getX(), this.position.getY() + direction.getY());
+			try {
+				render(gc, startRenderX + (int) getPosition().getX(), startRenderY + (int) getPosition().getY());
+			} catch (Exception e) {
+				// Do nothing
+			}
 		}
-		Coord direction = new Coord(GameScene.getCharacter().getPosition().getX() - this.position.getX(),
-				GameScene.getCharacter().getPosition().getY() - this.position.getY()).normalize(speed);
-		this.position.setXY(this.position.getX() + direction.getX(), this.position.getY() + direction.getY());
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class ShotgunBullet extends Bullet {
 	public ShotgunBullet(ShotgunBullet bullet, Coord velocity) {
 		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, 1);
 		this.bulletImage = SHOTGUN_BULLET;
-		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
+		this.damage = bullet.damage * GameScene.getHumanPlayer().getDamageMultiplier();
 		this.speed = bullet.speed;
 		this.mass = bullet.mass;
 	}

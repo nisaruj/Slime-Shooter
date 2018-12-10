@@ -28,8 +28,8 @@ public abstract class Powerup extends Item {
 	
 	@Override
 	public boolean isCollidePlayer() {
-		int posX = (int) GameScene.getCharacter().getPosition().getX();
-		int posY = (int) GameScene.getCharacter().getPosition().getY();
+		int posX = (int) GameScene.getHumanPlayer().getPosition().getX();
+		int posY = (int) GameScene.getHumanPlayer().getPosition().getY();
 		return posX > position.getX() - IMAGE_SIZE / 2 && posX < position.getX() + IMAGE_SIZE / 2 &&
 				posY > position.getY() - IMAGE_SIZE / 2 &&  posY < position.getY() + IMAGE_SIZE / 2;
 	}

@@ -16,7 +16,7 @@ public abstract class SingleShotBullet extends Bullet {
 	public SingleShotBullet(SingleShotBullet bullet, Coord velocity, double fireRadius) {
 		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, fireRadius);
 		this.bulletImage = DEFAULT_BULLET;
-		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
+		this.damage = bullet.damage * GameScene.getHumanPlayer().getDamageMultiplier();
 		this.speed = bullet.speed;
 		this.mass = bullet.mass;
 	}

@@ -55,7 +55,7 @@ public abstract class Weapon extends Item {
 
 	@Override
 	public void equip() {
-		GameScene.getCharacter().setWeapon(this);
+		GameScene.getHumanPlayer().setWeapon(this);
 	}
 
 	public String getName() {

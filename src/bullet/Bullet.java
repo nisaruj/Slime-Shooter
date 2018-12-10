@@ -30,7 +30,7 @@ public class Bullet implements Renderable {
 		this.bulletImage = bullet.bulletImage;
 		this.mass = bullet.mass;
 		this.speed = bullet.speed;
-		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
+		this.damage = bullet.damage * GameScene.getHumanPlayer().getDamageMultiplier();
 	}
 
 	public Bullet(String type, double speed, int damage, double mass) {
@@ -41,8 +41,8 @@ public class Bullet implements Renderable {
 	}
 
 	protected Bullet(Coord position, Coord velocity, double fireRadius) {
-		this.absolutePosition = new Coord(GameScene.getCharacter().getPosition().getX() + velocity.getX() * fireRadius,
-				GameScene.getCharacter().getPosition().getY() + velocity.getY() * fireRadius);
+		this.absolutePosition = new Coord(GameScene.getHumanPlayer().getPosition().getX() + velocity.getX() * fireRadius,
+				GameScene.getHumanPlayer().getPosition().getY() + velocity.getY() * fireRadius);
 		position.setXY(position.getX() + velocity.getX() * fireRadius, position.getY() + velocity.getY() * fireRadius);
 		this.position = position;
 		this.velocity = velocity;

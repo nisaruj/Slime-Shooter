@@ -46,7 +46,7 @@ public class GameStateUI extends StackPane {
 		final Image HEALTH_BAR = new Image(ClassLoader.getSystemResource("other/player_healthbar.png").toString());
 		final Image COIN_UI = new Image(ClassLoader.getSystemResource("other/coin_ui.png").toString());
 		String[] WeaponNameList = { "cannon", "flamethrower", "mg", "matter", "rocket", "shotgun" };
-		character.HumanPlayer player = GameScene.getCharacter();
+		character.HumanPlayer player = GameScene.getHumanPlayer();
 
 		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
