@@ -12,13 +12,4 @@ public class Cannon extends SingleShotWeapon {
 		this.reloadCost = 10;
 	}
 
-	@Override
-	public Bullet shoot() {
-		if (isReady()) {
-			ammo--;
-			reloadingTime = 0;
-			return new CannonBall((CannonBall) bullet, Bullet.initailVelocity(bullet.getSpeed()));
-		}
-		return null;
-	}
 }

@@ -9,14 +9,9 @@ import util.Coord;
 
 public class Shotgun extends Weapon {
 
-	private static final double ACCURACY_ERROR = Math.PI / 12;
-	private static final int SHOT_COUNT = 10;
-	private static final int DAMAGE = 10;
-	private static final int BULLET_SPEED = 13;
-
 	public Shotgun(int x, int y, int ammo) {
 		super("shotgun", x, y, ammo);
-		this.bullet = new ShotgunBullet(BULLET_SPEED, DAMAGE);
+		this.bullet = new ShotgunBullet(13, 10);
 		this.reloadSize = 3;
 		this.reloadCost = 12;
 		this.fireRate = 50;
@@ -42,11 +37,11 @@ public class Shotgun extends Weapon {
 				angle = -Math.atan(Math.abs(dY) / Math.abs(dX));
 			}
 
-			ShotgunBullet[] bulletList = new ShotgunBullet[SHOT_COUNT];
+			ShotgunBullet[] bulletList = new ShotgunBullet[10];
 			Coord velocity = new Coord();
 			Random rand = new Random();
-			for (int i = 0; i < SHOT_COUNT; i++) {
-				double error = rand.nextDouble() * ACCURACY_ERROR * (rand.nextInt(2) == 0 ? 1 : -1);
+			for (int i = 0; i < 10; i++) {
+				double error = rand.nextDouble() * Math.PI / 12 * (rand.nextInt(2) == 0 ? 1 : -1);
 				double newAngle = angle + error;
 				if (newAngle >= 0 && newAngle < Math.PI / 2) {
 					velocity.setXY(1, -Math.tan(newAngle));

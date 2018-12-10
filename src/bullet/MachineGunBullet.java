@@ -5,16 +5,14 @@ import util.Coord;
 
 public class MachineGunBullet extends SingleShotBullet {
 	
-	public static final double FIRE_RADIUS = 3;
-	private static final double MASS = 0.1;
 	private static final Image MG_BULLET = new Image(ClassLoader.getSystemResource("bullets/bulletc.png").toString());
 	
 	public MachineGunBullet(double speed, int damage) {
-		super("bulletc", speed, damage, MASS);
+		super("bulletc", speed, damage, 0.1);
 	}
 	
 	public MachineGunBullet(MachineGunBullet bullet, Coord velocity) {
-		super(bullet, velocity, FIRE_RADIUS);
+		super(bullet, velocity, 3);
 		this.bulletImage = MG_BULLET;
 	}
 

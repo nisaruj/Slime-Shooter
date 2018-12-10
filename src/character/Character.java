@@ -2,21 +2,13 @@ package character;
 
 import java.util.ArrayList;
 
-import item.Cannon;
-import item.Flamethrower;
 import item.MachineGun;
-import item.Matter;
-import item.RocketLauncher;
-import item.Shotgun;
-import item.SingleShotWeapon;
 import item.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.MainApplication;
-import render.Map;
 import render.Tile;
 import util.Coord;
-import render.*;
 public class Character {
 
 	private String name;
