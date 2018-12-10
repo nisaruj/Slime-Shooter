@@ -1,6 +1,5 @@
 package item;
 
-import bullet.Bullet;
 import bullet.Rocket;
 
 public class RocketLauncher extends SingleShotWeapon {
@@ -18,16 +17,6 @@ public class RocketLauncher extends SingleShotWeapon {
 		super("rocket",x, y, ammo);
 		this.bullet = new Rocket(BULLET_SPEED, DAMAGE);
 		this.fireRate = 50;
-	}
-	
-	@Override
-	public Bullet shoot() {
-		if (isReady()) {
-			ammo--;
-			reloadingTime = 0;
-			return new Rocket((Rocket) bullet, Bullet.initailVelocity(bullet.getSpeed()));
-		}
-		return null;
 	}
 	
 }

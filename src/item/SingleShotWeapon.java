@@ -1,22 +1,26 @@
 package item;
 import bullet.Bullet;
+import bullet.CannonBall;
+import bullet.MachineGunBullet;
+import bullet.RandomBullet;
+import bullet.Rocket;
+import bullet.SingleShotBullet;
 
 public class SingleShotWeapon extends Weapon {
 
 	private static final int DAMAGE = 10;
 	private static final int BULLET_SPEED = 10;
-	private static final double MASS = 0.1;
 	protected int fireRate = 10;
 	protected int reloadingTime = 0;
 
 	public SingleShotWeapon(String name) {
 		super(name);
-		this.bullet = new Bullet("bulletc", BULLET_SPEED, DAMAGE, MASS);
+		this.bullet = new MachineGunBullet(BULLET_SPEED, DAMAGE);
 	}
 	
 	public SingleShotWeapon(String name, int x, int y, int ammo) {
 		super(name, x, y, ammo);
-		this.bullet = new Bullet("bulletc", BULLET_SPEED, DAMAGE, MASS);
+		this.bullet = new MachineGunBullet(BULLET_SPEED, DAMAGE);
 	}
 
 	@Override
@@ -25,11 +29,21 @@ public class SingleShotWeapon extends Weapon {
 	}
 
 	@Override
-	public Bullet shoot() {
+	public SingleShotBullet shoot() {
 		if (isReady()) {
 			ammo--;
 			reloadingTime = 0;
-			return new Bullet(bullet, Bullet.initailVelocity(bullet.getSpeed()));
+			SingleShotBullet output = null;
+			if (bullet instanceof CannonBall) {
+				output = new CannonBall((CannonBall) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+			} else if (bullet instanceof RandomBullet) {
+				output = new RandomBullet((RandomBullet) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+			} else if (bullet instanceof Rocket) {
+				output = new Rocket((Rocket) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+			} else if (bullet instanceof MachineGunBullet) {
+				output = new MachineGunBullet((MachineGunBullet) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+			}
+			return output;
 		}
 		return null;
 	}

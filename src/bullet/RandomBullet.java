@@ -4,12 +4,11 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 import main.GameScene;
-import main.MainApplication;
 import util.Coord;
 
-public class RandomBullet extends Bullet {
+public class RandomBullet extends SingleShotBullet {
 
-	private static final double FIRE_RADIUS = 10;
+	public static final double FIRE_RADIUS = 10;
 	private static final double ROTATE_SPEED = 5;
 	private static final Image CAT_IMG = new Image(ClassLoader.getSystemResource("bullets/cat.png").toString());
 	private static final Image CANNON_IMG = new Image(ClassLoader.getSystemResource("bullets/cannonball.png").toString());
@@ -23,7 +22,7 @@ public class RandomBullet extends Bullet {
 	}
 
 	public RandomBullet(RandomBullet bullet, Coord velocity) {
-		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
+		super(bullet, velocity, FIRE_RADIUS);
 		Random rand = new Random();
 		int type = rand.nextInt(4);
 		switch (type) {
@@ -54,7 +53,6 @@ public class RandomBullet extends Bullet {
 		}
 		this.damage *= GameScene.getCharacter().getDamageMultiplier();
 		this.rotateDirection = rand.nextInt(2) == 0 ? 1 : -1;
-		this.speed = bullet.speed;
 	}
 
 	@Override
