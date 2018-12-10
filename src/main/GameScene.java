@@ -92,6 +92,9 @@ public class GameScene extends StackPane {
 				if (e.getCode() == KeyCode.E) {
 					humanPlayer.buyAmmo();
 				}
+				if (e.getCode() == KeyCode.Q) {
+					humanPlayer.toggleWeapon();
+				}
 			}
 
 		});
