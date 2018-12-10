@@ -1,7 +1,7 @@
 package render;
 import java.util.Scanner;
 
-import character.Character;
+import character.HumanPlayer;
 import javafx.scene.canvas.GraphicsContext;
 import main.MainApplication;
 
@@ -9,10 +9,10 @@ public class Map {
 
 	private static final int MAP_WIDTH = 100;
 	private static final int MAP_HEIGHT = 100;
-	private Character player;
+	private HumanPlayer player;
 	private Tile[][] tiles;
 
-	public Map(Character player) {
+	public Map(HumanPlayer player) {
 		this.player = player;
 
 		tiles = new Tile[MAP_HEIGHT][MAP_WIDTH];

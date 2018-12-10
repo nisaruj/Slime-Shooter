@@ -12,7 +12,7 @@ import bullet.Rocket;
 import bullet.ShotgunBullet;
 import character.Enemy;
 import character.Spawner;
-import character.Character;
+import character.HumanPlayer;
 import item.*;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
@@ -40,7 +40,7 @@ public class GameScene extends StackPane {
 	private static ArrayList<Enemy> enemies;
 	private ArrayList<Effect> effects;
 	private ArrayList<Spawner> spawners;
-	private static Character character;
+	private static HumanPlayer humanPlayer;
 	private static Coord currentMousePosition;
 	private Map map;
 	private Set<KeyCode> keyboardStatus;
@@ -78,7 +78,7 @@ public class GameScene extends StackPane {
 
 			@Override
 			public void handle(ScrollEvent event) {
-				character.toggleWeapon();
+				humanPlayer.toggleWeapon();
 			}
 
 		});
@@ -89,7 +89,7 @@ public class GameScene extends StackPane {
 			public void handle(KeyEvent e) {
 				keyboardStatus.add(e.getCode());
 				if (e.getCode() == KeyCode.E) {
-					character.buyAmmo();
+					humanPlayer.buyAmmo();
 				}
 			}
 
@@ -135,8 +135,8 @@ public class GameScene extends StackPane {
 		enemies = new ArrayList<Enemy>();
 		effects = new ArrayList<Effect>();
 		spawners = new ArrayList<Spawner>();
-		character = new Character();
-		map = new Map(character);
+		humanPlayer = new HumanPlayer();
+		map = new Map(humanPlayer);
 		items.add(new Flamethrower(500, 300, 1000));
 		items.add(new Matter(600, 300, 100));
 		items.add(new Cannon(500, 200, 100));
@@ -161,34 +161,34 @@ public class GameScene extends StackPane {
 	private void keyboardHandle() {
 		boolean isPressed = false;
 		if (keyboardStatus.contains(KeyCode.W)) {
-			character.moveUp();
+			humanPlayer.moveUp();
 			isPressed = true;
 		}
 		if (keyboardStatus.contains(KeyCode.A)) {
-			character.moveLeft();
+			humanPlayer.moveLeft();
 			isPressed = true;
 		}
 		if (keyboardStatus.contains(KeyCode.S)) {
-			character.moveDown();
+			humanPlayer.moveDown();
 			isPressed = true;
 		}
 		if (keyboardStatus.contains(KeyCode.D)) {
-			character.moveRight();
+			humanPlayer.moveRight();
 			isPressed = true;
 		}
 		if (keyboardStatus.contains(KeyCode.SPACE)) {
 			handlePlayerShoot();
 		}
 		if (isPressed) {
-			character.move();
+			humanPlayer.move();
 		} else {
-			character.idle();
+			humanPlayer.idle();
 		}
 	}
 
 	public void handlePlayerShoot() {
-		if (character.getWeapon().isReady()) {
-			Object o = character.getWeapon().shoot();
+		if (humanPlayer.getWeapon().isReady()) {
+			Object o = humanPlayer.getWeapon().shoot();
 			if (o instanceof FireBullet[]) {
 				for (FireBullet b : (FireBullet[]) o) {
 					addBullet(b);
@@ -215,8 +215,8 @@ public class GameScene extends StackPane {
 		// Render UI
 		healthBar.render();
 
-		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) character.getPosition().getX();
-		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) character.getPosition().getY();
+		int startRenderX = (MainApplication.SCREEN_WIDTH / 2) - (int) humanPlayer.getPosition().getX();
+		int startRenderY = (MainApplication.SCREEN_HEIGHT / 2) - (int) humanPlayer.getPosition().getY();
 		renderEffects(startRenderX, startRenderY);
 		updateItems(startRenderX, startRenderY);
 		updateEnemies(startRenderX, startRenderY);
@@ -225,10 +225,10 @@ public class GameScene extends StackPane {
 		updateSpawner();
 
 		// Render player
-		character.update(currentMousePosition);
-		character.render(gc);
+		humanPlayer.update(currentMousePosition);
+		humanPlayer.render(gc);
 
-		if (character.isDead()) {
+		if (humanPlayer.isDead()) {
 			gameSetup();
 			gameOver.showGameOver();
 		}
@@ -268,10 +268,10 @@ public class GameScene extends StackPane {
 			Enemy enemy = (Enemy) itr.next();
 			if (enemy.isDead()) {
 				effects.add(new Explosion(enemy.getPosition()));
-				character.addCoin(rand.nextInt(10) + 1);
+				humanPlayer.addCoin(rand.nextInt(10) + 1);
 				itr.remove();
 			} else if (enemy.isCollidePlayer()) {
-				character.takeDamage(enemy.getDamage());
+				humanPlayer.takeDamage(enemy.getDamage());
 				itr.remove();
 			} else {
 				enemy.update();
@@ -368,8 +368,8 @@ public class GameScene extends StackPane {
 		return currentMousePosition;
 	}
 
-	public static Character getCharacter() {
-		return character;
+	public static HumanPlayer getCharacter() {
+		return humanPlayer;
 	}
 
 	public static ArrayList<Item> getItemList() {
