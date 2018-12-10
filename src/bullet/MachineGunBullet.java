@@ -16,4 +16,9 @@ public class MachineGunBullet extends SingleShotBullet {
 		this.bulletImage = MG_BULLET;
 	}
 
+	@Override
+	public SingleShotBullet duplicate(SingleShotBullet bullet) {
+		return new MachineGunBullet((MachineGunBullet) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+	}
+
 }

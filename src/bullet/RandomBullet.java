@@ -59,4 +59,9 @@ public class RandomBullet extends SingleShotBullet {
 		angle += 5 * rotateDirection;
 	}
 
+	@Override
+	public SingleShotBullet duplicate(SingleShotBullet bullet) {
+		return new RandomBullet((RandomBullet) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+	}
+
 }

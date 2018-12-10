@@ -15,5 +15,10 @@ public class CannonBall extends SingleShotBullet {
 		super(bullet, velocity, 10);
 		this.bulletImage = CANNON_IMG;
 	}
+
+	@Override
+	public SingleShotBullet duplicate(SingleShotBullet bullet) {
+		return new CannonBall((CannonBall) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+	}
 	
 }

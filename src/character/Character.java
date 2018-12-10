@@ -2,8 +2,7 @@ package character;
 
 import java.util.ArrayList;
 
-import item.MachineGun;
-import item.Weapon;
+import item.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.MainApplication;
@@ -300,6 +299,7 @@ public class Character {
 		}
 		return false;
 	}
+	
 	public double getAnimatedCoinCount() {
 		return Math.round(this.animatedCoinCount);
 	}

@@ -31,4 +31,9 @@ public class Rocket extends SingleShotBullet {
 		return Coord.distance(this.absolutePosition, e.getPosition()) < 100;
 	}
 
+	@Override
+	public SingleShotBullet duplicate(SingleShotBullet bullet) {
+		return new Rocket((Rocket) bullet, Bullet.initailVelocity(bullet.getSpeed()));
+	}
+
 }
