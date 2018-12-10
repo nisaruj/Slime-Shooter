@@ -32,23 +32,23 @@ public class Player {
 		regenHealth(this.healthRegen);
 	}
 
-	public void render(GraphicsContext gc, int startRenderX, int startRenderY) {
-		final int DEFAULT_SIZE = 43;
-		final double x = startRenderX + position.getX(), y = startRenderY + position.getY();
-		int moveFrame = isMoving / (MAX_MOVE_SPEED - movingSpeed) % 4;
-		Image healthBar = new Image(ClassLoader.getSystemResource("other/healthbar.png").toString());
-		double healthPercent = (double) health / maxHealth;
-
-		if (x < -DEFAULT_SIZE || y < -DEFAULT_SIZE || x > MainApplication.SCREEN_WIDTH
-				|| y > MainApplication.SCREEN_HEIGHT) {
-			return;
-		}
-
-		gc.drawImage(healthBar, healthPercent * (healthBar.getWidth() - 1), 0, 1, 5, x - healthBar.getWidth() / 2,
-				y - healthBar.getHeight() / 2 - DEFAULT_SIZE / 2 - 10, healthPercent * healthBar.getWidth(), 5);
-		gc.drawImage(characterImage[facingDirection], moveFrame * CHARACTER_WIDTH, 0, DEFAULT_SIZE, DEFAULT_SIZE,
-				x - DEFAULT_SIZE / 2, y - DEFAULT_SIZE / 2, DEFAULT_SIZE, DEFAULT_SIZE);
-	}
+//	public void render(GraphicsContext gc, int startRenderX, int startRenderY) {
+//		final int DEFAULT_SIZE = 43;
+//		final double x = startRenderX + position.getX(), y = startRenderY + position.getY();
+//		int moveFrame = isMoving / (MAX_MOVE_SPEED - movingSpeed) % 4;
+//		Image healthBar = new Image(ClassLoader.getSystemResource("other/healthbar.png").toString());
+//		double healthPercent = (double) health / maxHealth;
+//
+//		if (x < -DEFAULT_SIZE || y < -DEFAULT_SIZE || x > MainApplication.SCREEN_WIDTH
+//				|| y > MainApplication.SCREEN_HEIGHT) {
+//			return;
+//		}
+//
+//		gc.drawImage(healthBar, healthPercent * (healthBar.getWidth() - 1), 0, 1, 5, x - healthBar.getWidth() / 2,
+//				y - healthBar.getHeight() / 2 - DEFAULT_SIZE / 2 - 10, healthPercent * healthBar.getWidth(), 5);
+//		gc.drawImage(characterImage[facingDirection], moveFrame * CHARACTER_WIDTH, 0, DEFAULT_SIZE, DEFAULT_SIZE,
+//				x - DEFAULT_SIZE / 2, y - DEFAULT_SIZE / 2, DEFAULT_SIZE, DEFAULT_SIZE);
+//	}
 
 	public void render(GraphicsContext gc) {
 		int moveFrame = isMoving / (MAX_MOVE_SPEED - movingSpeed) % 4;
