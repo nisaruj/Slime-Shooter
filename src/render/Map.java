@@ -24,7 +24,7 @@ public class Map {
 					if (input.hasNextInt()) {
 						tiles[i][j] = new Tile(input.nextInt());
 					}
-				}
+				} 
 			}
 			input.close();
 		} catch (Exception e) {

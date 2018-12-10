@@ -1,6 +1,5 @@
 package item;
 
-import bullet.Bullet;
 import bullet.RandomBullet;
 
 public class Matter extends SingleShotWeapon {
@@ -22,16 +21,6 @@ public class Matter extends SingleShotWeapon {
 		this.fireRate = 30;
 		this.reloadSize = 10;
 		this.reloadCost = 7;
-	}
-
-	@Override
-	public Bullet shoot() {
-		if (isReady()) {
-			ammo--;
-			reloadingTime = 0;
-			return new RandomBullet((RandomBullet) bullet, Bullet.initailVelocity(bullet.getSpeed()));
-		}
-		return null;
 	}
 
 }

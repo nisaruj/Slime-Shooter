@@ -1,6 +1,5 @@
 package item;
 
-import bullet.Bullet;
 import bullet.CannonBall;
 
 public class Cannon extends SingleShotWeapon {
@@ -23,14 +22,5 @@ public class Cannon extends SingleShotWeapon {
 		this.reloadSize = 5;
 		this.reloadCost = 10;
 	}
-	
-	@Override
-	public Bullet shoot() {
-		if (isReady()) {
-			ammo--;
-			reloadingTime = 0;
-			return new CannonBall((CannonBall) bullet, Bullet.initailVelocity(bullet.getSpeed()));
-		}
-		return null;
-	}
+
 }

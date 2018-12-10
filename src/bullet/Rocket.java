@@ -4,13 +4,11 @@ import java.util.ArrayList;
 
 import character.Enemy;
 import javafx.scene.image.Image;
-import main.GameScene;
-import main.MainApplication;
 import util.Coord;
 
-public class Rocket extends Bullet {
+public class Rocket extends SingleShotBullet {
 	
-	private static final double FIRE_RADIUS = 1;
+	public static final double FIRE_RADIUS = 1;
 	private static final double MASS = 0.1;
 	private static final Image ROCKET = new Image(ClassLoader.getSystemResource("bullets/rocket.png").toString());
 	private static final double BLAST_RADIUS = 100;
@@ -20,11 +18,8 @@ public class Rocket extends Bullet {
 	}
 	
 	public Rocket(Rocket bullet, Coord velocity) {
-		super(new Coord(MainApplication.SCREEN_WIDTH / 2, MainApplication.SCREEN_HEIGHT / 2), velocity, FIRE_RADIUS);
+		super(bullet, velocity, FIRE_RADIUS);
 		this.bulletImage = ROCKET;
-		this.damage = bullet.damage * GameScene.getCharacter().getDamageMultiplier();
-		this.speed = bullet.speed;
-		this.mass = bullet.mass;
 	}
 	
 	public void explode(ArrayList<Enemy> enemies) {
