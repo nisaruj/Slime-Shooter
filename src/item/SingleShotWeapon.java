@@ -8,24 +8,8 @@ import bullet.SingleShotBullet;
 
 public class SingleShotWeapon extends Weapon {
 
-	private static final int DAMAGE = 10;
-	private static final int BULLET_SPEED = 10;
-	protected int fireRate = 10;
-	protected int reloadingTime = 0;
-
-	public SingleShotWeapon(String name) {
-		super(name);
-		this.bullet = new MachineGunBullet(BULLET_SPEED, DAMAGE);
-	}
-
 	public SingleShotWeapon(String name, int x, int y, int ammo) {
 		super(name, x, y, ammo);
-		this.bullet = new MachineGunBullet(BULLET_SPEED, DAMAGE);
-	}
-
-	@Override
-	public boolean isReady() {
-		return ammo > 0 && reloadingTime >= fireRate;
 	}
 
 	@Override

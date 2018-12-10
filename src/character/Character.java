@@ -1,7 +1,10 @@
 package character;
 
+import java.util.ArrayList;
+
 import item.Cannon;
 import item.Flamethrower;
+import item.MachineGun;
 import item.Matter;
 import item.RocketLauncher;
 import item.Shotgun;
@@ -27,7 +30,9 @@ public class Character {
 	private double health;
 	private double maxHealth;
 	private boolean isDead;
-	private Weapon weapon;
+	private ArrayList<Weapon> weapon = new ArrayList<Weapon>();
+	private ArrayList<String> weaponType = new ArrayList<String>();
+	private int currentWeaponIndex;
 	private int isMoving;
 	private int movingSpeed;
 	private double speed;
@@ -60,7 +65,9 @@ public class Character {
 		this.characterImage[2] = new Image(ClassLoader.getSystemResource("characters/" + type + "_side.png").toString());
 		this.characterImage[3] = new Image(ClassLoader.getSystemResource("characters/" + type + "_diagup.png").toString());
 		this.characterImage[4] = new Image(ClassLoader.getSystemResource("characters/" + type + "_north.png").toString());
-		weapon = new SingleShotWeapon("mg", 0, 0, 100);
+		weapon.add(new MachineGun(0, 0, 100));
+		currentWeaponIndex = 0;
+		weaponType.add("mg");
 
 	}
 
@@ -73,7 +80,7 @@ public class Character {
 		regenHealth(this.healthRegen);
 		updateDamageMultiplier();
 		updateCoinCountAnimation();
-		weapon.update();
+		getWeapon().update();
 
 	}
 
@@ -146,11 +153,11 @@ public class Character {
 
 	public void render(GraphicsContext gc) {
 		int moveFrame = isMoving / (MAX_MOVE_SPEED - movingSpeed) % 4;
-
+		Weapon currentWeapon = getWeapon();
 		if (facingDirection == 3 || facingDirection == 4) {
 			// Render weapon first
 			if (weapon != null) {
-				weapon.render(gc, facingDirection, mirrorDirection, true);
+				currentWeapon.render(gc, facingDirection, mirrorDirection, true);
 			}
 			gc.drawImage(characterImage[facingDirection], CHARACTER_WIDTH * moveFrame, 0, CHARACTER_WIDTH,
 					CHARACTER_HEIGHT,
@@ -170,7 +177,7 @@ public class Character {
 					CHARACTER_HEIGHT * MainApplication.SIZE_MULTIPLIER);
 
 			if (weapon != null) {
-				weapon.render(gc, facingDirection, mirrorDirection, false);
+				currentWeapon.render(gc, facingDirection, mirrorDirection, false);
 			}
 
 		}
@@ -237,11 +244,11 @@ public class Character {
 	}
 
 	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
+		this.weapon.add(weapon);
 	}
 
 	public Weapon getWeapon() {
-		return weapon;
+		return weapon.get(currentWeaponIndex);
 	}
 
 	public double getDamageMultiplier() {
@@ -292,9 +299,10 @@ public class Character {
 	}
 	
 	public boolean buyAmmo() {
-		if (!weapon.isFull()) {
-			if (this.useCoin(this.weapon.getReloadCost())) {
-				this.weapon.refillAmmo();
+		Weapon currentWeapon = getWeapon();
+		if (!currentWeapon.isFull()) {
+			if (this.useCoin(currentWeapon.getReloadCost())) {
+				currentWeapon.refillAmmo();
 				return true;
 			}
 		}

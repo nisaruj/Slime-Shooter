@@ -4,23 +4,12 @@ import bullet.Rocket;
 
 public class RocketLauncher extends SingleShotWeapon {
 
-	private static final int DAMAGE = 80;
-	private static final int BULLET_SPEED = 20;
-
-	public RocketLauncher() {
-		super("rocket");
-		this.bullet = new Rocket(BULLET_SPEED, DAMAGE);
-		this.fireRate = 50;
-		this.reloadSize = 1;
-		this.reloadCost = 30;
-	}
-
 	public RocketLauncher(int x, int y, int ammo) {
 		super("rocket",x, y, ammo);
-		this.bullet = new Rocket(BULLET_SPEED, DAMAGE);
+		this.bullet = new Rocket(20, 80);
 		this.fireRate = 50;
 		this.reloadSize = 1;
-		this.reloadCost = 30;
+		this.reloadCost = 50;
 	}
 	
 }

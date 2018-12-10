@@ -14,6 +14,10 @@ public abstract class Weapon extends Item {
 	protected int magazineSize;
 	protected int reloadSize;
 	protected int reloadCost;
+	protected int fireRate;
+	protected int DAMAGE;
+	protected int BULLET_SPEED;
+	protected int reloadingTime;
 	protected Image[] weaponImage = new Image[5];
 	protected Bullet bullet;
 	
@@ -79,8 +83,11 @@ public abstract class Weapon extends Item {
 		return reloadSize;
 	}
 	
+	public boolean isReady() {
+		return ammo > 0 && reloadingTime >= fireRate;
+	}
+	
 	public abstract Object shoot();
-	public abstract boolean isReady();
 	public abstract void update();
 
 }

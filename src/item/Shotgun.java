@@ -8,26 +8,18 @@ import main.MainApplication;
 import util.Coord;
 
 public class Shotgun extends Weapon {
-	
+
 	private static final double ACCURACY_ERROR = Math.PI / 12;
 	private static final int SHOT_COUNT = 10;
 	private static final int DAMAGE = 10;
 	private static final int BULLET_SPEED = 13;
-	protected int fireRate = 50;
-	protected int reloadingTime;
-
-	public Shotgun() {
-		super("shotgun");
-		this.bullet = new ShotgunBullet(BULLET_SPEED, DAMAGE);
-		this.reloadSize = 3;
-		this.reloadCost = 12;
-	}
 
 	public Shotgun(int x, int y, int ammo) {
 		super("shotgun", x, y, ammo);
 		this.bullet = new ShotgunBullet(BULLET_SPEED, DAMAGE);
 		this.reloadSize = 3;
 		this.reloadCost = 12;
+		this.fireRate = 50;
 	}
 
 	@Override
@@ -77,11 +69,6 @@ public class Shotgun extends Weapon {
 			return bulletList;
 		}
 		return null;
-	}
-
-	@Override
-	public boolean isReady() {
-		return ammo > 0 && reloadingTime >= fireRate;
 	}
 
 	@Override
