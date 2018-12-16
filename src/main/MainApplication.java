@@ -30,7 +30,6 @@ public class MainApplication extends Application {
 
 		primaryStage.setResizable(false);
 		primaryStage.show();
-//		ScenicView.show(scene);
 	}
 
 	public static void main(String[] args) {

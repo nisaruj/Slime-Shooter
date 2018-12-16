@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.GameScene;
 import main.MainApplication;
-import render.Explosion;
 import render.Renderable;
 import util.Coord;
 

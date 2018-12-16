@@ -7,8 +7,6 @@ import java.util.Set;
 
 import item.Weapon;
 import javafx.scene.image.Image;
-import render.Tile;
-import util.Coord;
 
 public class ShootablePlayer extends Player {
 	protected Map<String, Weapon> weapon = new HashMap<String, Weapon>();

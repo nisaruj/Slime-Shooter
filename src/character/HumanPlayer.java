@@ -1,17 +1,8 @@
 package character;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import item.*;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import main.MainApplication;
-import render.Tile;
 import util.Coord;
 
 public class HumanPlayer extends ShootablePlayer {
