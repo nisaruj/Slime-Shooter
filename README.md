@@ -1,7 +1,9 @@
 # Slime Shooter
 2110215/2018 Programming Methodology Final Project
 
-> Slime Shooter is 8 bit top-down shooter game. The game's objective is to kill slimes as many as you can. You can use 6 types of weapon: Machine Gun, Flamethrower, Cannon, Matter, Shotgun and Rocket Launcher. In addition, you will receive up to 10 coins when you kill a slime. Use these coins to buy ammunition!
+> <b>Slime Shooter</b> is 8 bit top-down shooter game. The game's objective is to kill slimes as many as you can. You can use 6 types of weapon: Machine Gun, Flamethrower, Cannon, Matter, Shotgun and Rocket Launcher. In addition, you will receive up to 10 coins when you kill a slime. Use these coins to buy ammunition!
+
+![](https://github.com/nisaruj/Slime-Shooter/blob/master/img/gameplay.jpg)
 
 ## Getting Started
 Run ```Slime Shooter.jar``` to play the game. (It's a bit laggy ;-; please run with Eclipse to avoid lagging.)
@@ -25,7 +27,9 @@ As described above, there are 6 weapon types in this game and each type has its 
 | Shotgun (5%)            | 10                      | 50          | Just a shotgun                                                                                                 |
 | Rocket Launcher (2%)    | 80                      | 50          | Shoot a rocket with 100 blast radius                                                                           |
 
-
 ## Authors
 - [Nisaruj Rattanaaram](https://github.com/nisaruj)
 - [Tanakorn Pisnupoomi](https://github.com/intaniger)
+
+## Special thanks
+Cool game asset from [finalbossblues](https://finalbossblues.itch.io/pixel-shooter-towers-asset-pack)!
